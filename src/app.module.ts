@@ -12,7 +12,7 @@ import { DataSource } from 'typeorm';
     PaymentTransactionModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
-      database: 'payment-transaction',
+      database: 'userPaymentTransaction',
       host: 'localhost',
       port: 5432,
       username: 'postgres',
