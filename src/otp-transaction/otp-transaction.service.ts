@@ -1,26 +1,36 @@
 import { Injectable } from '@nestjs/common';
 import { CreateOtpTransactionDto } from './dto/create-otp-transaction.dto';
 import { UpdateOtpTransactionDto } from './dto/update-otp-transaction.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { OtpTransaction } from './entities/otp-transaction.entity';
+
+
 
 @Injectable()
 export class OtpTransactionService {
+  constructor(
+  @InjectRepository(OtpTransaction)
+    private OtpTransactionRepository: Repository<OtpTransaction>,
+  ) {}
+
   create(createOtpTransactionDto: CreateOtpTransactionDto) {
-    return 'This action adds a new otpTransaction';
+    return this.OtpTransactionRepository.save(createOtpTransactionDto)
   }
 
-  findAll() {
-    return `This action returns all otpTransaction`;
+  findAll(): Promise<OtpTransaction[]> {
+    return this.OtpTransactionRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} otpTransaction`;
-  }
+  // findOne(id: number): Promise<OtpTransaction> {
+  //   return this.OtpTransactionRepository.findOne();
+  // }
 
   update(id: number, updateOtpTransactionDto: UpdateOtpTransactionDto) {
-    return `This action updates a #${id} otpTransaction`;
+    return this.OtpTransactionRepository.update(id,updateOtpTransactionDto)
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} otpTransaction`;
+  async remove(id: string): Promise<void> {
+    await this.OtpTransactionRepository.delete(id);
   }
 }
