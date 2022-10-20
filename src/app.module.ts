@@ -21,6 +21,7 @@ import { DataSource } from 'typeorm';
       synchronize: true,
       migrations: ['./src/migrations/*.ts'],
     }),
+    
   ],
   controllers: [AppController],
   providers: [AppService],

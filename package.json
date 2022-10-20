@@ -30,17 +30,18 @@
     "@nestjs/core": "^9.0.0",
     "@nestjs/mapped-types": "*",
     "@nestjs/platform-express": "^9.0.0",
+    "@nestjs/serve-static": "^3.0.0",
     "@nestjs/typeorm": "^9.0.1",
     "dotenv": "^16.0.3",
+    "firebase-admin": "^10.0.2",
+    "firebase-functions": "^3.18.0",
     "pg": "^8.8.0",
     "postgres": "^3.3.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
     "typeorm": "^0.3.10",
-    "uuid": "^9.0.0",
-    "firebase-admin": "^10.0.2",
-    "firebase-functions": "^3.18.0"
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",
@@ -65,7 +66,6 @@
     "ts-node": "^10.9.1",
     "tsconfig-paths": "4.1.0",
     "typescript": "^4.7.4"
-    
   },
   "jest": {
     "moduleFileExtensions": [
@@ -86,8 +86,6 @@
   },
   "engines": {
     "node": "16.17.x",
-    "npm":"8.15.x"
+    "npm": "8.15.x"
   }
-
-  
 }
