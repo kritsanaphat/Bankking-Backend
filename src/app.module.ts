@@ -5,11 +5,13 @@ import { PaymentTransactionModule } from './payment-transaction/payment-transact
 import{ PaymentTransaction } from './payment-transaction/entities/payment-transaction.entity'
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
-
+import { OtpTransactionModule } from './otp-transaction/otp-transaction.module';
+import { OtpTransaction} from './otp-transaction/entities/otp-transaction.entity'
 
 @Module({
   imports: [
     PaymentTransactionModule,
+    OtpTransactionModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       database: 'userPaymentTransaction',
@@ -21,6 +23,17 @@ import { DataSource } from 'typeorm';
       synchronize: true,
       migrations: ['./src/migrations/*.ts'],
     }),
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      database: 'otpTransaction',
+      host: 'localhost',
+      port: 5432,
+      username: 'postgres',
+      password: 'kritsanaphat',
+      entities: [OtpTransaction],
+      synchronize: true,
+      migrations: ['./src/migrations/*.ts'],
+    })
     
   ],
   controllers: [AppController],
