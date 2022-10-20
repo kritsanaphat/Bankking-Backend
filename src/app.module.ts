@@ -8,34 +8,34 @@ import { DataSource } from 'typeorm';
 import { OtpTransactionModule } from './otp-transaction/otp-transaction.module';
 import { OtpTransaction} from './otp-transaction/entities/otp-transaction.entity'
 
-class databaseTransaction {
-  type: 'postgres'
-  port: 5432
-  username: 'postgres'
-  password: 'kritsanaphat'
-  database: 'transaction'
-  synchronize: true
-  host: 'localhost'
-
-};
-
-
 @Module({
   imports: [
     PaymentTransactionModule,
     OtpTransactionModule,
     TypeOrmModule.forRoot({
-      ...databaseTransaction,
-      name: 'paymentTransaction',
+      type: 'postgres',
+      database: 'userPaymentTransaction',
+      host: 'localhost',
+      port: 5432,
+      username: 'postgres',
+      password: 'kritsanaphat',
       entities: [PaymentTransaction],
+      synchronize: true,
+      migrations: ['./src/migrations/*.ts'],
     }),
     TypeOrmModule.forRoot({
-      ...databaseTransaction,
-      name: 'otpTransaction',
+      type: 'postgres',
+      database: 'otpTransaction',
+      host: 'localhost',
+      port: 5432,
+      username: 'postgres',
+      password: 'kritsanaphat',
       entities: [OtpTransaction],
-    }),
+      synchronize: true,
+      migrations: ['./src/migrations/*.ts'],
+    })
+    
   ],
-
   controllers: [AppController],
   providers: [AppService],
 })

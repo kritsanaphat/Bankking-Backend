@@ -17,10 +17,10 @@ export class OtpTransactionController {
     return this.otpTransactionService.findAll();
   }
 
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.otpTransactionService.findOne(+id);
-  // }
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.otpTransactionService.findOne(+id);
+  }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateOtpTransactionDto: UpdateOtpTransactionDto) {
@@ -29,6 +29,6 @@ export class OtpTransactionController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.otpTransactionService.remove(id);
+    return this.otpTransactionService.remove(+id);
   }
 }
