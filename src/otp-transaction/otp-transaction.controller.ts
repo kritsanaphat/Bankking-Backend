@@ -22,10 +22,10 @@ export class OtpTransactionController {
   //   return this.otpTransactionService.findOne(+id);
   // }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateOtpTransactionDto: UpdateOtpTransactionDto) {
-    return this.otpTransactionService.update(+id, updateOtpTransactionDto);
-  }
+  // @Patch(':id')
+  // update(@Param('id') id: string, @Body() updateOtpTransactionDto: UpdateOtpTransactionDto) {
+  //   return this.otpTransactionService.update(+id, updateOtpTransactionDto);
+  // }
 
   @Delete(':id')
   remove(@Param('id') id: string) {

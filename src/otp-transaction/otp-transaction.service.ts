@@ -26,9 +26,9 @@ export class OtpTransactionService {
   //   return `This action returns a #${id} otpTransaction`;
   // }
 
-  update(id: number, updateOtpTransactionDto: UpdateOtpTransactionDto) {
-    return this.OtpTransactionRepository.update(id,updateOtpTransactionDto)
-  }
+  // update(id: number, updateOtpTransactionDto: UpdateOtpTransactionDto) {
+  //   return this.OtpTransactionRepository.update(id,updateOtpTransactionDto)
+  // }
 
   async remove(id: string): Promise<void> {
     await this.OtpTransactionRepository.delete(id);

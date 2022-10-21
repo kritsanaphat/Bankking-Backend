@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { CreatePaymentTransactionDto } from './dto/create-payment-transaction.dto';
-import { UpdatePaymentTransactionDto } from './dto/update-payment-transaction.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import{ PaymentTransaction } from './entities/payment-transaction.entity'
 
+import { CreatePaymentTransactionDto } from './dto/create-payment-transaction.dto';
+import { UpdatePaymentTransactionDto } from './dto/update-payment-transaction.dto';
+import{ PaymentTransaction } from './entities/payment-transaction.entity'
 
 
 @Injectable()

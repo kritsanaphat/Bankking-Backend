@@ -24,10 +24,10 @@ export class PaymentTransactionController {
   //   return this.paymentTransactionService.findOne(id);
   // }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePaymentTransactionDto: UpdatePaymentTransactionDto) {
-    return this.paymentTransactionService.update(+id, updatePaymentTransactionDto);
-  }
+  // @Patch(':id')
+  // update(@Param('id') id: string, @Body() updatePaymentTransactionDto: UpdatePaymentTransactionDto) {
+  //   return this.paymentTransactionService.update(+id, updatePaymentTransactionDto);
+  // }
 
   // @Delete(':id')
   // remove(@Param('id') id: string) {

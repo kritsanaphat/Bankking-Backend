@@ -11,7 +11,8 @@ enum Payment_Type{
   TRANSFER = 'transfer',
   RECEIVE = 'receive',
   WITHDRAW = 'withdraw',
-  DEPOSIT = 'deposit'
+  DEPOSIT = 'deposit',
+  QR_PAYMENT = 'qrPayment'
 }
 
 @Entity()
@@ -84,6 +85,12 @@ export class PaymentTransaction {
 
 export namespace PaymentTransaction {
   export enum BankName_Type{d4QU = '4QU'}
-  export enum Payment_Type{TRANSFER = 'transfer',RECEIVE = 'receive',WITHDRAW = 'withdraw',DEPOSIT = 'deposit'}
+  export enum Payment_Type{
+    TRANSFER = 'transfer',
+    RECEIVE = 'receive',
+    WITHDRAW = 'withdraw',
+    DEPOSIT = 'deposit',
+    QR_PAYMENT = 'qrPayment'
+  }
 
 }

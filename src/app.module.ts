@@ -9,7 +9,8 @@ import { PaymentTransactionModule } from './payment-transaction/payment-transact
 import { OtpTransactionModule } from './otp-transaction/otp-transaction.module';
 import { PaymentTransaction } from './payment-transaction/entities/payment-transaction.entity';
 import { OtpTransaction } from './otp-transaction/entities/otp-transaction.entity';
-
+import { PaymentGatewayApitransactionModule } from './payment-gateway-apitransaction/payment-gateway-apitransaction.module';
+import { PaymentGatewayApitransaction } from './payment-gateway-apitransaction/entities/payment-gateway-apitransaction.entity';
 // const transactionDB: TypeOrmModuleOptions = {
 //   type: 'postgres',
 //   port: 5432,
@@ -27,12 +28,12 @@ import { OtpTransaction } from './otp-transaction/entities/otp-transaction.entit
       username: 'postgres1',
       password: 'kritsanaphat1',
       database: 'transaction',
-      entities: [PaymentTransaction,OtpTransaction],
+      entities: [PaymentTransaction,OtpTransaction,PaymentGatewayApitransaction],
       synchronize: true,
     }),
      PaymentTransactionModule,
      OtpTransactionModule,
-     
+     PaymentGatewayApitransactionModule,
      
     ],
   controllers: [AppController],
