@@ -13,6 +13,8 @@ import { PaymentGatewayApitransactionModule } from './payment-gateway-apitransac
 import { PaymentGatewayApitransaction } from './payment-gateway-apitransaction/entities/payment-gateway-apitransaction.entity';
 import { VerificationTransactionModule } from './verification-transaction/verification-transaction.module';
 import { VerificationTransaction } from './verification-transaction/entities/verification-transaction.entity';
+import { ActivityTransactionModule } from './activity-transaction/activity-transaction.module';
+import { ActivityTransaction } from './activity-transaction/entities/activity-transaction.entity';
 // const transactionDB: TypeOrmModuleOptions = {
 //   type: 'postgres',
 //   port: 5432,
@@ -34,13 +36,16 @@ import { VerificationTransaction } from './verification-transaction/entities/ver
                 PaymentTransaction,
                 OtpTransaction,
                 PaymentGatewayApitransaction,
-                VerificationTransaction],
+                VerificationTransaction,
+                ActivityTransaction
+              ],
       synchronize: true,
     }),
      PaymentTransactionModule,
      OtpTransactionModule,
      PaymentGatewayApitransactionModule,
      VerificationTransactionModule,
+     ActivityTransactionModule,
      
     ],
   controllers: [AppController],
