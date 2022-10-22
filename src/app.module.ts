@@ -27,7 +27,7 @@ import { ActivityTransaction } from './activity-transaction/entities/activity-tr
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
+      host: 'host',
       port: 5432,
       username: 'postgres1',
       password: 'kritsanaphat1',
