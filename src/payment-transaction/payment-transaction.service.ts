@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Like, Repository, Between } from 'typeorm';
 
 import { CreatePaymentTransactionDto } from './dto/create-payment-transaction.dto';
 import { UpdatePaymentTransactionDto } from './dto/update-payment-transaction.dto';
@@ -23,15 +23,25 @@ export class PaymentTransactionService {
   }
 
 
-  // findOne(id: string): Promise<PaymentTransaction> {
-  //   return this.PaymentTransactionRepository.findOneBy(id);
+  findOne(createdAt: string): Promise<PaymentTransaction[]> {
+
+    const date = this.PaymentTransactionRepository.find({
+      where: {
+          created_at: Between(
+              new Date(createdAt+',1'), 
+              new Date(createdAt+',31')
+          ),
+      }
+    })
+    return date
+  }
+
+
+  // update(id: number, updatePaymentTransactionDto: UpdatePaymentTransactionDto) {
+  //   return this.PaymentTransactionRepository.update(id,updatePaymentTransactionDto)
   // }
 
-  update(id: number, updatePaymentTransactionDto: UpdatePaymentTransactionDto) {
-    return this.PaymentTransactionRepository.update(id,updatePaymentTransactionDto)
-  }
-
-  async remove(id: string): Promise<void> {
-    await this.PaymentTransactionRepository.delete(id);
-  }
+  // async remove(id: string): Promise<void> {
+  //   await this.PaymentTransactionRepository.delete(id);
+  // }
 }

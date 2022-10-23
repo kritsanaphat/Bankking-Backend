@@ -4,6 +4,8 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { PaymentTransactionService } from './payment-transaction.service';
 import { CreatePaymentTransactionDto } from './dto/create-payment-transaction.dto';
 import { UpdatePaymentTransactionDto } from './dto/update-payment-transaction.dto';
+import { PaymentTransaction } from './entities/payment-transaction.entity';
+import { CreateOtpTransactionDto } from 'src/otp-transaction/dto/create-otp-transaction.dto';
 
 @Controller('payment-transaction')
 export class PaymentTransactionController {
@@ -16,13 +18,13 @@ export class PaymentTransactionController {
 
   @Get()
   findAll() {
-    return this.paymentTransactionService.findAll();
+    return this.paymentTransactionService.findAll()
   }
 
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.paymentTransactionService.findOne(id);
-  // }
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.paymentTransactionService.findOne(id);
+  }
 
   // @Patch(':id')
   // update(@Param('id') id: string, @Body() updatePaymentTransactionDto: UpdatePaymentTransactionDto) {
