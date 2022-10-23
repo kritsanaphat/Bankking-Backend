@@ -15,6 +15,7 @@ import { VerificationTransactionModule } from './verification-transaction/verifi
 import { VerificationTransaction } from './verification-transaction/entities/verification-transaction.entity';
 import { ActivityTransactionModule } from './activity-transaction/activity-transaction.module';
 import { ActivityTransaction } from './activity-transaction/entities/activity-transaction.entity';
+import { UserNotificationTransactionModule } from './user-notification-transaction/user-notification-transaction.module';
 // const transactionDB: TypeOrmModuleOptions = {
 //   type: 'postgres',
 //   port: 5432,
@@ -46,6 +47,7 @@ import { ActivityTransaction } from './activity-transaction/entities/activity-tr
      PaymentGatewayApitransactionModule,
      VerificationTransactionModule,
      ActivityTransactionModule,
+     UserNotificationTransactionModule,
      
     ],
   controllers: [AppController],
