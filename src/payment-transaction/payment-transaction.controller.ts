@@ -22,8 +22,8 @@ export class PaymentTransactionController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.paymentTransactionService.findOne(id);
+  findbyDate(@Param('id') id: string) {
+    return this.paymentTransactionService.findbyDate(id);
   }
 
   // @Patch(':id')

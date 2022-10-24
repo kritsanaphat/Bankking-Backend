@@ -24,26 +24,124 @@ export class PaymentTransactionService {
   }
   
   
-  findOne(createdAt: string): Promise<PaymentTransaction[]> {
+
+
+  findbyDate(createdAt: string): Promise<PaymentTransaction[]> {
+    //  s => startDate
+    //  e => endDate
+    
     var newCreatedAt = (createdAt.split(","))
     const num = newCreatedAt.length
-    const p = Promise.resolve([]);
-    for(let i=0 ; i<num;i++){
-      // console.log("1")
-      var dateTemp = newCreatedAt.pop()
-      var date = this.PaymentTransactionRepository.find({
-      where: {
-        created_at: Between(
-          new Date(dateTemp+',1'), 
-          new Date(dateTemp+',31')
-          
-        ),
+    console.log(num)
+    if(num == 1){
+      var dateTemp1 = newCreatedAt.pop()
+    const d = this.PaymentTransactionRepository
+        .createQueryBuilder('d')
+        .where
+        ("(d.created_at > :s1 and d.created_at < :e1)", 
+        {s1: new Date(dateTemp1+",1"),e1: new Date(dateTemp1+",31")})
+        .getMany();
+        console.log("Return...")
+        return d
     }
+    if(num == 2){
+      var dateTemp1 = newCreatedAt.pop()
+      var dateTemp2 = newCreatedAt.pop()
+    const d = this.PaymentTransactionRepository
+        .createQueryBuilder('d')
+        .where
+        ("(d.created_at > :s1 and d.created_at < :e1) or (d.created_at > :s2 and d.created_at < :e2)", 
+        {s1: new Date(dateTemp1+",1"),e1: new Date(dateTemp1+",31")
+      ,s2: new Date(dateTemp2+",1"),e2: new Date(dateTemp2+",31")})
+        .getMany();
+        console.log("Return...")
+        return d
+    }
+
+    else if(num == 3){
+      var dateTemp1 = newCreatedAt.pop()
+      var dateTemp2 = newCreatedAt.pop()
+      var dateTemp3 = newCreatedAt.pop()
+    const d = this.PaymentTransactionRepository
+        .createQueryBuilder('d')
+        .where
+        ('(d.created_at > :s1 and d.created_at < :e1) or (d.created_at > :s2 and d.created_at < :e2)or (d.created_at > :s3 and d.created_at < :e3)', 
+        {s1: new Date(dateTemp1+",1"),e1: new Date(dateTemp1+",31")
+      ,s2: new Date(dateTemp2+",1"),e2: new Date(dateTemp2+",31")
+      ,s3: new Date(dateTemp2+",1"),e3: new Date(dateTemp3+",31")
+    
     })
+        .getMany();
+        console.log("Return...")
+        return d
+    }
+
+    else if(num == 4){
+      var dateTemp1 = newCreatedAt.pop()
+      var dateTemp2 = newCreatedAt.pop()
+      var dateTemp3 = newCreatedAt.pop()
+      var dateTemp4 = newCreatedAt.pop()
+    const d = this.PaymentTransactionRepository
+        .createQueryBuilder('d')
+        .where
+        ('(d.created_at > :s1 and d.created_at < :e1) or (d.created_at > :s2 and d.created_at < :e2)or (d.created_at > :s3 and d.created_at < :e3)or (d.created_at > :s4 and d.created_at < :e4)', 
+        {s1: new Date(dateTemp1+",1"),e1: new Date(dateTemp1+",31")
+      ,s2: new Date(dateTemp2+",1"),e2: new Date(dateTemp2+",31")
+      ,s3: new Date(dateTemp3+",1"),e3: new Date(dateTemp3+",31")
+      ,s4: new Date(dateTemp4+",1"),e4: new Date(dateTemp4+",31")
+
+    })
+        .getMany();
+        console.log("Return...")
+        return d
+    }
+
+    else if(num == 5){
+      var dateTemp1 = newCreatedAt.pop()
+      var dateTemp2 = newCreatedAt.pop()
+      var dateTemp3 = newCreatedAt.pop()
+      var dateTemp4 = newCreatedAt.pop()
+      var dateTemp5 = newCreatedAt.pop()
+    const d = this.PaymentTransactionRepository
+        .createQueryBuilder('d')
+        .where
+        ('(d.created_at > :s1 and d.created_at < :e1) or (d.created_at > :s2 and d.created_at < :e2)or (d.created_at > :s3 and d.created_at < :e3)or (d.created_at > :s4 and d.created_at < :e4 )or (d.created_at > :s5 or d.created_at < :e5 )', 
+        {s1: new Date(dateTemp1+",1"),e1: new Date(dateTemp1+",31")
+      ,s2: new Date(dateTemp2+",1"),e2: new Date(dateTemp2+",31")
+      ,s3: new Date(dateTemp3+",1"),e3: new Date(dateTemp3+",31")
+      ,s4: new Date(dateTemp4+",1"),e4: new Date(dateTemp4+",31")
+      ,s5: new Date(dateTemp5+",1"),e5: new Date(dateTemp5+",31")
+
+    })
+        .getMany();
+        console.log("Return...")
+        return d
+    }
+
+    else if(num == 6){
+      var dateTemp1 = newCreatedAt.pop()
+      var dateTemp2 = newCreatedAt.pop()
+      var dateTemp3 = newCreatedAt.pop()
+      var dateTemp4 = newCreatedAt.pop()
+      var dateTemp5 = newCreatedAt.pop()
+      var dateTemp6 = newCreatedAt.pop()
+    const d = this.PaymentTransactionRepository
+        .createQueryBuilder('d')
+        .where
+        ('(d.created_at > :s1 and d.created_at < :e1) or (d.created_at > :s2 and d.created_at < :e2)or (d.created_at > :s3 and d.created_at < :e3)or (d.created_at > :s4 and d.created_at < :e4 )or (d.created_at > :s5 and d.created_at < :e5 )or (d.created_at > :s6 and d.created_at < :s6 )', 
+        {s1: new Date(dateTemp1+",1"),e1: new Date(dateTemp1+",31")
+      ,s2: new Date(dateTemp2+",1"),e2: new Date(dateTemp2+",31")
+      ,s3: new Date(dateTemp3+",1"),e3: new Date(dateTemp3+",31")
+      ,s4: new Date(dateTemp4+",1"),e4: new Date(dateTemp4+",31")
+      ,s5: new Date(dateTemp5+",1"),e5: new Date(dateTemp5+",31")
+      ,s6: new Date(dateTemp6+",1"),e6: new Date(dateTemp6+",31")
+    })
+        .getMany();
+        console.log("Return...")
+        return d
+    }
+
    
-    // date.then(response => console.log("2",dateTemp,newCreatedAt))
-  }
-    return date    
     }
     
   
