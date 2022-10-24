@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { response } from 'express';
 import { Like, Repository, Between } from 'typeorm';
 
 import { CreatePaymentTransactionDto } from './dto/create-payment-transaction.dto';
@@ -21,20 +22,31 @@ export class PaymentTransactionService {
   findAll(): Promise<PaymentTransaction[]> {
     return this.PaymentTransactionRepository.find();
   }
-
-
+  
+  
   findOne(createdAt: string): Promise<PaymentTransaction[]> {
-
-    const date = this.PaymentTransactionRepository.find({
+    var newCreatedAt = (createdAt.split(","))
+    const num = newCreatedAt.length
+    const p = Promise.resolve([]);
+    for(let i=0 ; i<num;i++){
+      // console.log("1")
+      var dateTemp = newCreatedAt.pop()
+      var date = this.PaymentTransactionRepository.find({
       where: {
-          created_at: Between(
-              new Date(createdAt+',1'), 
-              new Date(createdAt+',31')
-          ),
-      }
+        created_at: Between(
+          new Date(dateTemp+',1'), 
+          new Date(dateTemp+',31')
+          
+        ),
+    }
     })
-    return date
+   
+    // date.then(response => console.log("2",dateTemp,newCreatedAt))
   }
+    return date    
+    }
+    
+  
 
 
   // update(id: number, updatePaymentTransactionDto: UpdatePaymentTransactionDto) {

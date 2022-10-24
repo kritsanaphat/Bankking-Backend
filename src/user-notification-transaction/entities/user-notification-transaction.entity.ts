@@ -19,7 +19,9 @@ export class UserNotificationTransaction {
     )
     transactionID: string
 
-    @Column()
+    @Column({
+        default: false
+    })
     isRead : boolean
 
     @CreateDateColumn()
@@ -30,4 +32,8 @@ export class UserNotificationTransaction {
 
     @DeleteDateColumn()
     deleted_at  :Date;
+
+    public getNotiID(){
+        return this.getNotiID
+    }
 }

@@ -22,10 +22,10 @@ export class UserNotificationTransactionController {
   //   return this.userNotificationTransactionService.findOne(+id);
   // }
 
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateUserNotificationTransactionDto: UpdateUserNotificationTransactionDto) {
-  //   return this.userNotificationTransactionService.update(+id, updateUserNotificationTransactionDto);
-  // }
+  @Patch(':id')
+  update(@Param('isRead') id: string, @Body() updateUserNotificationTransactionDto: UpdateUserNotificationTransactionDto) {
+    return this.userNotificationTransactionService.update(id, updateUserNotificationTransactionDto);
+  }
 
   // @Delete(':id')
   // remove(@Param('id') id: string) {

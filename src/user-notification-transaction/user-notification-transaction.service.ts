@@ -27,6 +27,15 @@ export class UserNotificationTransactionService {
   // update(id: number, updateUserNotificationTransactionDto: UpdateUserNotificationTransactionDto) {
   //   return `This action updates a #${id} userNotificationTransaction`;
   // }
+  
+
+  async update(id: string, updateUserNotificationTransactionDto : UpdateUserNotificationTransactionDto) {
+    const isReadToUpdate = await this.UserNotificationTransactionRepository.findOneBy ({
+      notiID: id,
+  })
+    isReadToUpdate.isRead = true
+    return this.UserNotificationTransactionRepository.save(isReadToUpdate)
+  }
 
   // remove(id: number) {
   //   return `This action removes a #${id} userNotificationTransaction`;
