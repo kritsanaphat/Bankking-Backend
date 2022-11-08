@@ -27,9 +27,13 @@ export class PaymentGatewayApitransactionService {
   //   return `This action returns a #${id} otpTransaction`;
   // }
 
-  // update(id: number, updatePaymentGatewayApitransactionDto: UpdatePaymentGatewayApitransactionDto) {
-  //   return this.PaymentGatewayApitransactionRepository.update(id,updatePaymentGatewayApitransactionDto)
-  // }
+  async update(id: string, updatePaymentGatewayApitransactionDto : UpdatePaymentGatewayApitransactionDto) {
+    const isFinishToUpdate = await this.PaymentGatewayApitransactionRepository.findOneBy ({
+      transactionID: id,
+  })
+    isFinishToUpdate.isFinish = true
+    return this.PaymentGatewayApitransactionRepository.save(isFinishToUpdate)
+  }
 
   async remove(id: string): Promise<void> {
     await this.PaymentGatewayApitransactionRepository.delete(id);

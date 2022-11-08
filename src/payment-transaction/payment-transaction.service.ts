@@ -7,7 +7,6 @@ import { CreatePaymentTransactionDto } from './dto/create-payment-transaction.dt
 import { UpdatePaymentTransactionDto } from './dto/update-payment-transaction.dto';
 import{ PaymentTransaction } from './entities/payment-transaction.entity'
 
-
 @Injectable()
 export class PaymentTransactionService {
   constructor(
@@ -21,12 +20,9 @@ export class PaymentTransactionService {
 
   findAll(): Promise<PaymentTransaction[]> {
     return this.PaymentTransactionRepository.find();
-  }
-  
-  
+  }  
 
-
-  findbyDate(createdAt: string): Promise<PaymentTransaction[]> {
+  findbyMonth(createdAt: string): Promise<PaymentTransaction[]> {
     //  s => startDate
     //  e => endDate
     
@@ -145,6 +141,68 @@ export class PaymentTransactionService {
     }
     
   
+  async findbyDate(createdAt: string): Promise<any>{
+    var newCreatedAt = (createdAt.split(","))
+    const num = newCreatedAt.length
+    var dateTemp1 = newCreatedAt.pop()
+    var dateTemp2 = newCreatedAt.pop()
+    console.log(dateTemp1,dateTemp2)
+
+    const d= await this.PaymentTransactionRepository
+        .createQueryBuilder('d')
+        .where
+
+        ("(d.created_at > :e1 and d.created_at < :s1)", 
+        {s1: new Date(dateTemp1),e1: new Date(dateTemp2)})
+        .getMany();
+        console.log("Return...")
+        let response = {}
+        d.map((value,index)=>{
+          const isIncome = value.type === PaymentTransaction.Payment_Type.RECEIVE || value.type === PaymentTransaction.Payment_Type.DEPOSIT
+          const date = `${value.created_at.getDate()}/${value.created_at.getMonth() + 1}/${value.created_at.getFullYear()}`
+          if (response[date]) {
+            if(isIncome){
+              response[date].income += value.amount
+              response[date].outcome += value.fee
+
+            }
+            else{
+              response[date].outcome += value.amount+value.fee
+            }
+
+          } else {
+            response[date] = {
+              income : isIncome ? value.amount : 0,
+              outcome : !isIncome ? value.amount+value.fee : 0
+            }
+          }
+          // console.log(date)
+          console.log(value.created_at.getDate(), value.amount , value.type, value.fee)
+        })
+
+        const ArrayResponse = []
+        const keys = Object.keys(response)
+
+        for (const key of keys) {
+          ArrayResponse.push({
+            date: key,
+            ...response[key]
+          })
+        }
+
+        // "11/10/2022" : {
+        //   in: ...
+        //   out: ...
+        // }
+
+        console.log(ArrayResponse);
+        
+
+        
+
+        return ArrayResponse
+
+  }
 
 
   // update(id: number, updatePaymentTransactionDto: UpdatePaymentTransactionDto) {

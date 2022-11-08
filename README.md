@@ -77,9 +77,17 @@ Nest is [MIT licensed](LICENSE).
 ## About Code
 
 ## Paymet Transaction 
-- create Transaction. '''Payment'''
-- get All Transaction.
-- get Transaction By Months.
+- create Transaction. (payment transaction)
+- get All Transaction. (transaction backend)
+- get Transaction By Months. (transaction backend)
 
 ## UserNotifican Transaction
-- 
+- check if the notification has been read or not. (Home / Homeshop)
+
+## Payment Gateway Transaction
+- check if the payment gateway has been Finish or not. 
+
+## Otp Transaction
+- create OTP Transaction (account backend)
+
+##

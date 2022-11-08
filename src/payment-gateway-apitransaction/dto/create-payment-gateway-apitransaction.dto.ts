@@ -9,6 +9,7 @@ export class CreatePaymentGatewayApitransactionDto {
     amount :number
     type: PaymentGatewayApitransaction.Payment_Type; 
     userAccountName : string;
+    isFinish: boolean;
     created_at: Date
     updated_at  :Date;
     deleted_at  :Date;

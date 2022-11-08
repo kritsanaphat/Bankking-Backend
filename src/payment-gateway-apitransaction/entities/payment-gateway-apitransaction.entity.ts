@@ -48,6 +48,11 @@ export class PaymentGatewayApitransaction {
     })
     userAccountName : string;
 
+    @Column({
+      default: false
+    })
+    isFinish : boolean
+
     @CreateDateColumn()
     created_at: Date
   

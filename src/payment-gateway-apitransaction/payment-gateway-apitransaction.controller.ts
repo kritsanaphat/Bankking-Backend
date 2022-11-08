@@ -23,10 +23,10 @@ export class PaymentGatewayApitransactionController {
   //   return this.paymentGatewayApitransactionService.findOne(+id);
   // }
 
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updatePaymentGatewayApitransactionDto: UpdatePaymentGatewayApitransactionDto) {
-  //   return this.paymentGatewayApitransactionService.update(+id, updatePaymentGatewayApitransactionDto);
-  // }
+  @Patch(':id')
+  update(@Param('isFinish') id: string, @Body() updatePaymentGatewayApitransactionDto: UpdatePaymentGatewayApitransactionDto) {
+    return this.paymentGatewayApitransactionService.update(id, updatePaymentGatewayApitransactionDto);
+  }
 
   // @Delete(':id')
   // remove(@Param('id') id: string) {

@@ -21,7 +21,12 @@ export class PaymentTransactionController {
     return this.paymentTransactionService.findAll()
   }
 
-  @Get(':id')
+  @Get('month/:id')
+  findbyMonth(@Param('id') id: string) {
+    return this.paymentTransactionService.findbyMonth(id);
+  }
+
+  @Get('date/:id')
   findbyDate(@Param('id') id: string) {
     return this.paymentTransactionService.findbyDate(id);
   }
