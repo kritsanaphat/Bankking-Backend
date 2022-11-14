@@ -141,9 +141,8 @@ export class PaymentTransactionService {
     }
     
   
-  async findbyDate(createdAt: string): Promise<any>{
+  async findSumOfDate(createdAt: string): Promise<any>{
     var newCreatedAt = (createdAt.split(","))
-    const num = newCreatedAt.length
     var dateTemp1 = newCreatedAt.pop()
     var dateTemp2 = newCreatedAt.pop()
     console.log(dateTemp1,dateTemp2)
@@ -203,6 +202,64 @@ export class PaymentTransactionService {
         return ArrayResponse
 
   }
+
+
+  async findSumOfMonth(createdAt: string): Promise<any>{
+    var newCreatedAt = (createdAt.split(","))
+    var dateTemp1 = newCreatedAt.pop()
+    var dateTemp2 = newCreatedAt.pop()
+    console.log(dateTemp1,dateTemp2)
+
+    const d= await this.PaymentTransactionRepository
+        .createQueryBuilder('d')
+        .where
+        ("(d.created_at > :e1 and d.created_at < :s1)", 
+        {s1: new Date(dateTemp1+",31"),e1: new Date(dateTemp2+",1")})
+        .getMany();
+        console.log("Return...")
+        let response = {}
+        d.map((value,index)=>{
+          const isIncome = value.type === PaymentTransaction.Payment_Type.RECEIVE || value.type === PaymentTransaction.Payment_Type.DEPOSIT
+          const month = `${value.created_at.getMonth() + 1}/${value.created_at.getFullYear()}`
+          console.log("month"+month)
+          if (response[month]) {
+            if(isIncome){
+              response[month].income += value.amount
+              response[month].outcome += value.fee
+
+            }
+            else{
+              response[month].outcome += value.amount+value.fee
+            }
+
+          } else {
+            response[month] = {
+              income : isIncome ? value.amount : 0,
+              outcome : !isIncome ? value.amount+value.fee : 0
+            }
+          }
+          // console.log(date)
+          console.log(value.created_at.getDate(), value.amount , value.type, value.fee)
+        })
+
+        const ArrayResponse = []
+        const keys = Object.keys(response)
+
+        for (const key of keys) {
+          ArrayResponse.push({
+            month: key,
+            ...response[key]
+          })
+        }
+
+        console.log(ArrayResponse);
+        return ArrayResponse
+
+  }
+
+
+
+
 
 
   // update(id: number, updatePaymentTransactionDto: UpdatePaymentTransactionDto) {

@@ -21,14 +21,19 @@ export class PaymentTransactionController {
     return this.paymentTransactionService.findAll()
   }
 
-  @Get('month/:id')
+  @Get('/:id')
   findbyMonth(@Param('id') id: string) {
     return this.paymentTransactionService.findbyMonth(id);
   }
 
-  @Get('date/:id')
-  findbyDate(@Param('id') id: string) {
-    return this.paymentTransactionService.findbyDate(id);
+  @Get('Sum-date/:id')
+  findSumOfDate(@Param('id') id: string) {
+    return this.paymentTransactionService.findSumOfDate(id);
+  }
+
+  @Get('Sum-month/:id')
+  findSumOfMonth(@Param('id') id: string) {
+    return this.paymentTransactionService.findSumOfMonth(id);
   }
 
   // @Patch(':id')
