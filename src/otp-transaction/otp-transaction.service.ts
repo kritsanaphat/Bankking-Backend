@@ -29,8 +29,16 @@ export class OtpTransactionService {
   // update(id: number, updateOtpTransactionDto: UpdateOtpTransactionDto) {
   //   return this.OtpTransactionRepository.update(id,updateOtpTransactionDto)
   // }
-
+  
   async remove(id: string): Promise<void> {
     await this.OtpTransactionRepository.delete(id);
   }
+  async update(id: string, updateOtpTransactionDto : UpdateOtpTransactionDto) {
+    const isFinishdToUpdate = await this.OtpTransactionRepository.findOneBy ({
+      transactionID: id,
+  })
+    isFinishdToUpdate.isFinishd = true
+    return this.OtpTransactionRepository.save(isFinishdToUpdate)
+  }
+
 }
