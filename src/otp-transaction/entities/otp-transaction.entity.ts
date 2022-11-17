@@ -36,7 +36,7 @@ import {
     timeStart: Date
 
     @Column()
-      isFinishd: boolean;
+      isFinished: boolean;
 
     @Column({
         type: 'varchar',

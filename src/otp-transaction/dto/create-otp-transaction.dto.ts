@@ -5,7 +5,7 @@ export class CreateOtpTransactionDto {
     refNumber: string;
     type: OtpTransaction.UserActivity_Type;
     timeStart :Date;
-    isFinishd: boolean;
+    isFinished: boolean;
     IPAddress: string;
     created_at: Date    
     updated_at  :Date;

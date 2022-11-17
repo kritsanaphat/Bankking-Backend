@@ -138,8 +138,8 @@ export class PaymentTransactionService {
     }
 
    
-    }
-    
+  }
+
   
   async findSumOfDate(createdAt: string): Promise<any>{
     var newCreatedAt = (createdAt.split(","))

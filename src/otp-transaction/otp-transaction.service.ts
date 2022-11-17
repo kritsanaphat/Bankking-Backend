@@ -37,7 +37,7 @@ export class OtpTransactionService {
     const isFinishdToUpdate = await this.OtpTransactionRepository.findOneBy ({
       transactionID: id,
   })
-    isFinishdToUpdate.isFinishd = true
+    isFinishdToUpdate.isFinished = true
     return this.OtpTransactionRepository.save(isFinishdToUpdate)
   }
 

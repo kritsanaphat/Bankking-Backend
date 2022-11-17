@@ -23,7 +23,7 @@ export class OtpTransactionController {
   // }
 
   @Patch(':id')
-  update(@Param('isFinishd') id: string, @Body() updateOtpTransactionDto: UpdateOtpTransactionDto) {
+  update(@Param('isFinished') id: string, @Body() updateOtpTransactionDto: UpdateOtpTransactionDto) {
     return this.otpTransactionService.update(id, updateOtpTransactionDto);
   }
 
