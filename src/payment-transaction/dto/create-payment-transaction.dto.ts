@@ -2,7 +2,6 @@ import { PaymentTransaction } from '../entities/payment-transaction.entity'
 
 export class CreatePaymentTransactionDto {
   transactionID: string;
-  refNumber: string;
   IPAddress: string;
   userAccountNumber: string;
   otherAccountNumber: string;

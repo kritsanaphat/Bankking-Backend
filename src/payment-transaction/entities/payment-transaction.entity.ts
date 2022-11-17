@@ -24,11 +24,6 @@ export class PaymentTransaction {
   transactionID: string;
 
   @Column({
-    type: 'uuid',
-  })
-  refNumber: string;
-
-  @Column({
     type: 'varchar',
   })
   IPAddress: string;
