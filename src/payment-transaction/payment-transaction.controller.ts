@@ -6,6 +6,7 @@ import { CreatePaymentTransactionDto } from './dto/create-payment-transaction.dt
 import { UpdatePaymentTransactionDto } from './dto/update-payment-transaction.dto';
 import { PaymentTransaction } from './entities/payment-transaction.entity';
 import { CreateOtpTransactionDto } from 'src/otp-transaction/dto/create-otp-transaction.dto';
+import { CreateStatementTransactionDto } from './dto/create-statement-transaction.dto';
 
 @Controller('payment-transaction')
 export class PaymentTransactionController {
@@ -14,6 +15,11 @@ export class PaymentTransactionController {
   @Post()
   create(@Body() createPaymentTransactionDto: CreatePaymentTransactionDto) {
     return this.paymentTransactionService.create(createPaymentTransactionDto);
+  }
+
+  @Post('statement')
+  createStatement(@Body() createStatementTransactionDto: CreateStatementTransactionDto) {
+    return this.paymentTransactionService.createStatement(createStatementTransactionDto);
   }
 
   @Get()

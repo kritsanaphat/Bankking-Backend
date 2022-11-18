@@ -11,8 +11,6 @@ import { PaymentTransaction } from './payment-transaction/entities/payment-trans
 import { OtpTransaction } from './otp-transaction/entities/otp-transaction.entity';
 import { PaymentGatewayApitransactionModule } from './payment-gateway-apitransaction/payment-gateway-apitransaction.module';
 import { PaymentGatewayApitransaction } from './payment-gateway-apitransaction/entities/payment-gateway-apitransaction.entity';
-import { VerificationTransactionModule } from './verification-transaction/verification-transaction.module';
-import { VerificationTransaction } from './verification-transaction/entities/verification-transaction.entity';
 import { ActivityTransactionModule } from './activity-transaction/activity-transaction.module';
 import { ActivityTransaction } from './activity-transaction/entities/activity-transaction.entity';
 import { UserNotificationTransactionModule } from './user-notification-transaction/user-notification-transaction.module';
@@ -38,7 +36,6 @@ import { UserNotificationTransaction } from './user-notification-transaction/ent
                 PaymentTransaction,
                 OtpTransaction,
                 PaymentGatewayApitransaction,
-                VerificationTransaction,
                 ActivityTransaction,
                 UserNotificationTransaction
               ],
@@ -47,7 +44,6 @@ import { UserNotificationTransaction } from './user-notification-transaction/ent
      PaymentTransactionModule,
      OtpTransactionModule,
      PaymentGatewayApitransactionModule,
-     VerificationTransactionModule,
      ActivityTransactionModule,
      UserNotificationTransactionModule,
      

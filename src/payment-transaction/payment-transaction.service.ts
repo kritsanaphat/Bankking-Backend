@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { response } from 'express';
+import { validateHeaderValue } from 'http';
 import { Like, Repository, Between } from 'typeorm';
 
 import { CreatePaymentTransactionDto } from './dto/create-payment-transaction.dto';
+import { CreateStatementTransactionDto } from './dto/create-statement-transaction.dto';
 import { UpdatePaymentTransactionDto } from './dto/update-payment-transaction.dto';
 import{ PaymentTransaction } from './entities/payment-transaction.entity'
 
@@ -17,20 +19,148 @@ export class PaymentTransactionService {
   create(createPaymentTransactionDto: CreatePaymentTransactionDto) {
     return this.PaymentTransactionRepository.save(createPaymentTransactionDto)
   }
+  
+  async createStatement(createStatementTransactionDto: CreateStatementTransactionDto){
+    //  s => startDate
+    //  e => endDate
+    var date = createStatementTransactionDto.Date.split(',')
+    const num = date.length
+    if(num == 1){
+      var dateTemp1 = date.pop()
+      const d = await this.PaymentTransactionRepository
+        .createQueryBuilder('d')
+        .where
+        ("(d.created_at > :s1 and d.created_at < :e1)", 
+        {s1: new Date(dateTemp1+",1"),e1: new Date(dateTemp1+",31")})
+        .getMany()
+        console.log("Return...")
+      
+      let response = {}
+      let responseArray = []
+      d.map((value,index)=>{
+        if(value.userAccountNumber == createStatementTransactionDto.userAccountNumber){
+              
+            response = {
+              datetime :  value.created_at,
+              description : value.type,
+              paymentAmount : value.userAccountNumber,
+              balance : value.amount
+            }
+            responseArray.push(response)
+          }
+        })
+        let Finalresponse = {"statement":responseArray,"sourceEmail":createStatementTransactionDto.sourceEmail,
+                            "desEmail":createStatementTransactionDto.destEmail,
+                            "name":"FFFFFFFFFFFFFFFFFFFFFF",
+                            "accountNumber":createStatementTransactionDto.userAccountNumber}
+
+        console.log(Finalresponse)
+        return Finalresponse
+        
+    }
+    else if(num == 2){
+      var dateTemp1 = date.pop()
+      var dateTemp2 = date.pop()
+      const d = this.PaymentTransactionRepository
+        .createQueryBuilder('d')
+        //.where('d.userAccountNumber = :userAccountNumber ', { userAccountNumber:createStatementTransactionDto.userAccountNumber })
+        //.andWhere('d.otherAccountNumber = :otherAccountNumber ', { otherAccountNumber:"0123456" })
+        .where
+        ("(d.created_at > :s1 and d.created_at < :e1) or (d.created_at > :s2 and d.created_at < :e2)", 
+        {s1: new Date(dateTemp1+",1"),e1: new Date(dateTemp1+",31")
+        ,s2: new Date(dateTemp2+",1"),e2: new Date(dateTemp2+",31")})
+        .getMany();
+        console.log("Return...")
+        return d
+    }
+
+    else if(num == 3){
+      var dateTemp1 = date.pop()
+      var dateTemp2 = date.pop()
+      var dateTemp3 = date.pop()
+      const d = this.PaymentTransactionRepository
+        .createQueryBuilder('d')
+        .where
+        ('(d.created_at > :s1 and d.created_at < :e1) or (d.created_at > :s2 and d.created_at < :e2)or (d.created_at > :s3 and d.created_at < :e3)', 
+        {s1: new Date(dateTemp1+",1"),e1: new Date(dateTemp1+",31")
+        ,s2: new Date(dateTemp2+",1"),e2: new Date(dateTemp2+",31")
+        ,s3: new Date(dateTemp2+",1"),e3: new Date(dateTemp3+",31")})
+        .getMany();
+        console.log("Return...")
+        return d
+    }
+
+    else if(num == 4){
+      var dateTemp1 = date.pop()
+      var dateTemp2 = date.pop()
+      var dateTemp3 = date.pop()
+      var dateTemp4 = date.pop()
+      const d = this.PaymentTransactionRepository
+        .createQueryBuilder('d')
+        .where
+        ('(d.created_at > :s1 and d.created_at < :e1) or (d.created_at > :s2 and d.created_at < :e2)or (d.created_at > :s3 and d.created_at < :e3)or (d.created_at > :s4 and d.created_at < :e4)', 
+        {s1: new Date(dateTemp1+",1"),e1: new Date(dateTemp1+",31")
+        ,s2: new Date(dateTemp2+",1"),e2: new Date(dateTemp2+",31")
+        ,s3: new Date(dateTemp3+",1"),e3: new Date(dateTemp3+",31")
+        ,s4: new Date(dateTemp4+",1"),e4: new Date(dateTemp4+",31") })
+        .getMany();
+        console.log("Return...")
+        return d
+    }
+
+    else if(num == 5){
+      var dateTemp1 = date.pop()
+      var dateTemp2 = date.pop()
+      var dateTemp3 = date.pop()
+      var dateTemp4 = date.pop()
+      var dateTemp5 = date.pop()
+      const d = this.PaymentTransactionRepository
+        .createQueryBuilder('d')
+        .where('d.userAccountNumber = :userAccountNumber ', { userAccountNumber:"78484584" })
+        // .andWhere
+        // ('(d.created_at > :s1 and d.created_at < :e1) or (d.created_at > :s2 and d.created_at < :e2)or (d.created_at > :s3 and d.created_at < :e3)or (d.created_at > :s4 and d.created_at < :e4 )or (d.created_at > :s5 or d.created_at < :e5 )', 
+        // {s1: new Date(dateTemp1+",1"),e1: new Date(dateTemp1+",31")
+        // ,s2: new Date(dateTemp2+",1"),e2: new Date(dateTemp2+",31")
+        // ,s3: new Date(dateTemp3+",1"),e3: new Date(dateTemp3+",31")
+        // ,s4: new Date(dateTemp4+",1"),e4: new Date(dateTemp4+",31")
+        // ,s5: new Date(dateTemp5+",1"),e5: new Date(dateTemp5+",31") })
+        .getMany();
+        console.log("Return...")
+        return d
+    }
+
+    else if(num == 6){
+      var dateTemp1 = date.pop()
+      var dateTemp2 = date.pop()
+      var dateTemp3 = date.pop()
+      var dateTemp4 = date.pop()
+      var dateTemp5 = date.pop()
+      var dateTemp6 = date.pop()
+      const d = this.PaymentTransactionRepository
+        .createQueryBuilder('d')
+        .where
+        ('(d.created_at > :s1 and d.created_at < :e1) or (d.created_at > :s2 and d.created_at < :e2)or (d.created_at > :s3 and d.created_at < :e3)or (d.created_at > :s4 and d.created_at < :e4 )or (d.created_at > :s5 and d.created_at < :e5 )or (d.created_at > :s6 and d.created_at < :s6 )', 
+        {s1: new Date(dateTemp1+",1"),e1: new Date(dateTemp1+",31")
+        ,s2: new Date(dateTemp2+",1"),e2: new Date(dateTemp2+",31")
+        ,s3: new Date(dateTemp3+",1"),e3: new Date(dateTemp3+",31")
+        ,s4: new Date(dateTemp4+",1"),e4: new Date(dateTemp4+",31")
+        ,s5: new Date(dateTemp5+",1"),e5: new Date(dateTemp5+",31")
+        ,s6: new Date(dateTemp6+",1"),e6: new Date(dateTemp6+",31")})
+        .getMany();
+        console.log("Return...")
+        return d
+    }
+  }
 
   findAll(): Promise<PaymentTransaction[]> {
     return this.PaymentTransactionRepository.find();
   }  
 
   findbyMonth(createdAt: string): Promise<PaymentTransaction[]> {
-    //  s => startDate
-    //  e => endDate
-    
     var newCreatedAt = (createdAt.split(","))
     const num = newCreatedAt.length
     console.log(num)
-    if(num == 1){
-      var dateTemp1 = newCreatedAt.pop()
+    var dateTemp1 = newCreatedAt.pop()
     const d = this.PaymentTransactionRepository
         .createQueryBuilder('d')
         .where
@@ -39,103 +169,6 @@ export class PaymentTransactionService {
         .getMany();
         console.log("Return...")
         return d
-    }
-    if(num == 2){
-      var dateTemp1 = newCreatedAt.pop()
-      var dateTemp2 = newCreatedAt.pop()
-    const d = this.PaymentTransactionRepository
-        .createQueryBuilder('d')
-        .where
-        ("(d.created_at > :s1 and d.created_at < :e1) or (d.created_at > :s2 and d.created_at < :e2)", 
-        {s1: new Date(dateTemp1+",1"),e1: new Date(dateTemp1+",31")
-      ,s2: new Date(dateTemp2+",1"),e2: new Date(dateTemp2+",31")})
-        .getMany();
-        console.log("Return...")
-        return d
-    }
-
-    else if(num == 3){
-      var dateTemp1 = newCreatedAt.pop()
-      var dateTemp2 = newCreatedAt.pop()
-      var dateTemp3 = newCreatedAt.pop()
-    const d = this.PaymentTransactionRepository
-        .createQueryBuilder('d')
-        .where
-        ('(d.created_at > :s1 and d.created_at < :e1) or (d.created_at > :s2 and d.created_at < :e2)or (d.created_at > :s3 and d.created_at < :e3)', 
-        {s1: new Date(dateTemp1+",1"),e1: new Date(dateTemp1+",31")
-      ,s2: new Date(dateTemp2+",1"),e2: new Date(dateTemp2+",31")
-      ,s3: new Date(dateTemp2+",1"),e3: new Date(dateTemp3+",31")
-    
-    })
-        .getMany();
-        console.log("Return...")
-        return d
-    }
-
-    else if(num == 4){
-      var dateTemp1 = newCreatedAt.pop()
-      var dateTemp2 = newCreatedAt.pop()
-      var dateTemp3 = newCreatedAt.pop()
-      var dateTemp4 = newCreatedAt.pop()
-    const d = this.PaymentTransactionRepository
-        .createQueryBuilder('d')
-        .where
-        ('(d.created_at > :s1 and d.created_at < :e1) or (d.created_at > :s2 and d.created_at < :e2)or (d.created_at > :s3 and d.created_at < :e3)or (d.created_at > :s4 and d.created_at < :e4)', 
-        {s1: new Date(dateTemp1+",1"),e1: new Date(dateTemp1+",31")
-      ,s2: new Date(dateTemp2+",1"),e2: new Date(dateTemp2+",31")
-      ,s3: new Date(dateTemp3+",1"),e3: new Date(dateTemp3+",31")
-      ,s4: new Date(dateTemp4+",1"),e4: new Date(dateTemp4+",31")
-
-    })
-        .getMany();
-        console.log("Return...")
-        return d
-    }
-
-    else if(num == 5){
-      var dateTemp1 = newCreatedAt.pop()
-      var dateTemp2 = newCreatedAt.pop()
-      var dateTemp3 = newCreatedAt.pop()
-      var dateTemp4 = newCreatedAt.pop()
-      var dateTemp5 = newCreatedAt.pop()
-    const d = this.PaymentTransactionRepository
-        .createQueryBuilder('d')
-        .where
-        ('(d.created_at > :s1 and d.created_at < :e1) or (d.created_at > :s2 and d.created_at < :e2)or (d.created_at > :s3 and d.created_at < :e3)or (d.created_at > :s4 and d.created_at < :e4 )or (d.created_at > :s5 or d.created_at < :e5 )', 
-        {s1: new Date(dateTemp1+",1"),e1: new Date(dateTemp1+",31")
-      ,s2: new Date(dateTemp2+",1"),e2: new Date(dateTemp2+",31")
-      ,s3: new Date(dateTemp3+",1"),e3: new Date(dateTemp3+",31")
-      ,s4: new Date(dateTemp4+",1"),e4: new Date(dateTemp4+",31")
-      ,s5: new Date(dateTemp5+",1"),e5: new Date(dateTemp5+",31")
-
-    })
-        .getMany();
-        console.log("Return...")
-        return d
-    }
-
-    else if(num == 6){
-      var dateTemp1 = newCreatedAt.pop()
-      var dateTemp2 = newCreatedAt.pop()
-      var dateTemp3 = newCreatedAt.pop()
-      var dateTemp4 = newCreatedAt.pop()
-      var dateTemp5 = newCreatedAt.pop()
-      var dateTemp6 = newCreatedAt.pop()
-    const d = this.PaymentTransactionRepository
-        .createQueryBuilder('d')
-        .where
-        ('(d.created_at > :s1 and d.created_at < :e1) or (d.created_at > :s2 and d.created_at < :e2)or (d.created_at > :s3 and d.created_at < :e3)or (d.created_at > :s4 and d.created_at < :e4 )or (d.created_at > :s5 and d.created_at < :e5 )or (d.created_at > :s6 and d.created_at < :s6 )', 
-        {s1: new Date(dateTemp1+",1"),e1: new Date(dateTemp1+",31")
-      ,s2: new Date(dateTemp2+",1"),e2: new Date(dateTemp2+",31")
-      ,s3: new Date(dateTemp3+",1"),e3: new Date(dateTemp3+",31")
-      ,s4: new Date(dateTemp4+",1"),e4: new Date(dateTemp4+",31")
-      ,s5: new Date(dateTemp5+",1"),e5: new Date(dateTemp5+",31")
-      ,s6: new Date(dateTemp6+",1"),e6: new Date(dateTemp6+",31")
-    })
-        .getMany();
-        console.log("Return...")
-        return d
-    }
 
    
   }
@@ -175,10 +208,11 @@ export class PaymentTransactionService {
               outcome : !isIncome ? value.amount+value.fee : 0
             }
           }
-          // console.log(date)
+           console.log(date)
           console.log(value.created_at.getDate(), value.amount , value.type, value.fee)
         })
-
+        //console.log(response)
+        
         const ArrayResponse = []
         const keys = Object.keys(response)
 
@@ -189,12 +223,7 @@ export class PaymentTransactionService {
           })
         }
 
-        // "11/10/2022" : {
-        //   in: ...
-        //   out: ...
-        // }
-
-        console.log(ArrayResponse);
+        //console.log(ArrayResponse);
         
 
         
