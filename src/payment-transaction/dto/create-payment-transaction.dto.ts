@@ -5,6 +5,7 @@ export class CreatePaymentTransactionDto {
   IPAddress: string;
   userAccountNumber: string;
   otherAccountNumber: string;
+  accountID: string;
   nameOther: string;
   bankNameOther: PaymentTransaction.BankName_Type;
   amount :number;

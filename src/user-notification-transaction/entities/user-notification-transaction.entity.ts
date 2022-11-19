@@ -33,7 +33,4 @@ export class UserNotificationTransaction {
     @DeleteDateColumn()
     deleted_at  :Date;
 
-    public getNotiID(){
-        return this.getNotiID
-    }
 }

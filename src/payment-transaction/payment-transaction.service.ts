@@ -8,18 +8,52 @@ import { CreatePaymentTransactionDto } from './dto/create-payment-transaction.dt
 import { CreateStatementTransactionDto } from './dto/create-statement-transaction.dto';
 import { UpdatePaymentTransactionDto } from './dto/update-payment-transaction.dto';
 import{ PaymentTransaction } from './entities/payment-transaction.entity'
+import {UserNotificationTransaction} from '../user-notification-transaction/entities/user-notification-transaction.entity'
+import { CreateUserNotificationTransactionDto } from 'src/user-notification-transaction/dto/create-user-notification-transaction.dto';
+import { UserNotificationTransactionService } from 'src/user-notification-transaction/user-notification-transaction.service';
+import { HttpService } from '@nestjs/axios';
 
 @Injectable()
 export class PaymentTransactionService {
   constructor(
     @InjectRepository(PaymentTransaction)
     private PaymentTransactionRepository: Repository<PaymentTransaction>,
+    private readonly httpService: HttpService
   ) {}
 
-  create(createPaymentTransactionDto: CreatePaymentTransactionDto) {
-    return this.PaymentTransactionRepository.save(createPaymentTransactionDto)
+  async create(createPaymentTransactionDto: CreatePaymentTransactionDto) {
+   
+    const data = {
+      "accountID":createPaymentTransactionDto.accountID,
+      "transactionID":"83037447-1fe1-47ad-9b6e-e26a5c1fcad4"
+    }
+    console.log(data)
+    const createNotification = await this.httpService.axiosRef.post('http://localhost:3001/user-notification-transaction',data)
+    return     this.PaymentTransactionRepository.save(createPaymentTransactionDto)
+
   }
   
+  findAll(): Promise<PaymentTransaction[]> {
+    return this.PaymentTransactionRepository.find();
+  }  
+
+  findbyMonth(createdAt: string): Promise<PaymentTransaction[]> {
+    var newCreatedAt = (createdAt.split(","))
+    const num = newCreatedAt.length
+    console.log(num)
+    var dateTemp1 = newCreatedAt.pop()
+    const d = this.PaymentTransactionRepository
+        .createQueryBuilder('d')
+        .where
+        ("(d.created_at > :s1 and d.created_at < :e1)", 
+        {s1: new Date(dateTemp1+",1"),e1: new Date(dateTemp1+",31")})
+        .getMany();
+        console.log("Return...")
+        return d
+
+   
+  }
+
   async createStatement(createStatementTransactionDto: CreateStatementTransactionDto){
     //  s => startDate
     //  e => endDate
@@ -39,32 +73,31 @@ export class PaymentTransactionService {
       let responseArray = []
       d.map((value,index)=>{
         if(value.userAccountNumber == createStatementTransactionDto.userAccountNumber){
-              
             response = {
               datetime :  value.created_at,
               description : value.type,
-              paymentAmount : value.userAccountNumber,
+              paymentAmount : value.amount,
               balance : value.amount
             }
             responseArray.push(response)
           }
         })
-        let Finalresponse = {"statement":responseArray,"sourceEmail":createStatementTransactionDto.sourceEmail,
-                            "desEmail":createStatementTransactionDto.destEmail,
-                            "name":"FFFFFFFFFFFFFFFFFFFFFF",
-                            "accountNumber":createStatementTransactionDto.userAccountNumber}
+      let Finalresponse = {"statement":responseArray,
+                             "sourceEmail":createStatementTransactionDto.sourceEmail,
+                             "desEmail":createStatementTransactionDto.destEmail,
+                             "name":createStatementTransactionDto.name,
+                             "accountNumber":createStatementTransactionDto.userAccountNumber
+                            }
 
-        console.log(Finalresponse)
-        return Finalresponse
-        
+      console.log(Finalresponse)
+      return Finalresponse
+
     }
     else if(num == 2){
       var dateTemp1 = date.pop()
       var dateTemp2 = date.pop()
       const d = this.PaymentTransactionRepository
         .createQueryBuilder('d')
-        //.where('d.userAccountNumber = :userAccountNumber ', { userAccountNumber:createStatementTransactionDto.userAccountNumber })
-        //.andWhere('d.otherAccountNumber = :otherAccountNumber ', { otherAccountNumber:"0123456" })
         .where
         ("(d.created_at > :s1 and d.created_at < :e1) or (d.created_at > :s2 and d.created_at < :e2)", 
         {s1: new Date(dateTemp1+",1"),e1: new Date(dateTemp1+",31")
@@ -151,28 +184,6 @@ export class PaymentTransactionService {
         return d
     }
   }
-
-  findAll(): Promise<PaymentTransaction[]> {
-    return this.PaymentTransactionRepository.find();
-  }  
-
-  findbyMonth(createdAt: string): Promise<PaymentTransaction[]> {
-    var newCreatedAt = (createdAt.split(","))
-    const num = newCreatedAt.length
-    console.log(num)
-    var dateTemp1 = newCreatedAt.pop()
-    const d = this.PaymentTransactionRepository
-        .createQueryBuilder('d')
-        .where
-        ("(d.created_at > :s1 and d.created_at < :e1)", 
-        {s1: new Date(dateTemp1+",1"),e1: new Date(dateTemp1+",31")})
-        .getMany();
-        console.log("Return...")
-        return d
-
-   
-  }
-
   
   async findSumOfDate(createdAt: string): Promise<any>{
     var newCreatedAt = (createdAt.split(","))
@@ -231,7 +242,6 @@ export class PaymentTransactionService {
         return ArrayResponse
 
   }
-
 
   async findSumOfMonth(createdAt: string): Promise<any>{
     var newCreatedAt = (createdAt.split(","))

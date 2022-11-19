@@ -6,5 +6,7 @@ export class CreateStatementTransactionDto{
     userAccountNumber: string;
     destEmail: string;
     sourceEmail :string;
+    accountName: string;
+    name:string
     Date: string;
 }
