@@ -59,6 +59,11 @@ export class PaymentTransaction {
     type: 'float',
   })
   fee :number;
+
+  @Column({
+    type: 'float',
+  })
+  balance :number;
   
   @Column({
     type: 'enum',
@@ -66,6 +71,10 @@ export class PaymentTransaction {
   })
   type: Payment_Type;
 
+  @Column()
+  date: Date 
+
+  
   @CreateDateColumn()
   created_at: Date
 

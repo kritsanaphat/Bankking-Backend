@@ -17,15 +17,30 @@ export class PaymentGatewayApitransaction {
     @PrimaryGeneratedColumn(
         'uuid'
         )
-      transactionID: string;
+      shopID: string;
 
     @Column({
         type: 'varchar',
       })
       shopAccountNumber: string;
 
-    @CreateDateColumn()
-      datetime: Date
+    @Column({
+        type: 'varchar',
+      })
+      userAccountNumber: string;
+    
+    @Column({
+        type: 'varchar'
+    })
+    nameUser : string;
+
+    @Column({
+      type: 'varchar'
+    })
+    bankNameUser : string;
+
+    @Column()
+      date: Date
 
     @Column({
         type: 'float',
@@ -36,6 +51,11 @@ export class PaymentGatewayApitransaction {
         type: 'float',
       })
       amount :number;
+    
+    @Column({
+        type: 'float',
+      })
+      balance :number;
 
     @Column({
         type: 'enum',
@@ -44,27 +64,23 @@ export class PaymentGatewayApitransaction {
     type: Payment_Type;
 
     @Column({
-        type: 'varchar'
-    })
-    userAccountName : string;
-
-    @Column({
       default: false
     })
-    isFinish : boolean
+    isFinish? : boolean
 
     @CreateDateColumn()
-    created_at: Date
+    created_at?: Date
   
     @UpdateDateColumn()
-    updated_at  :Date;
+    updated_at?  :Date;
   
     @DeleteDateColumn()
-    deleted_at  :Date;
+    deleted_at?  :Date;
 
 }
 
 export namespace PaymentGatewayApitransaction{
+  export enum BankName_Type{d4QU = '4QU'}
     export enum Payment_Type{
         TRANSFER = 'transfer',
         RECEIVE = 'receive',

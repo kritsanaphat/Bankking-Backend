@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CreatePaymentGatewayApitransactionDto } from './dto/create-payment-gateway-apitransaction.dto';
 import { UpdatePaymentGatewayApitransactionDto } from './dto/update-payment-gateway-apitransaction.dto';
 import { PaymentGatewayApitransaction } from './entities/payment-gateway-apitransaction.entity';
+import { CreateUserNotificationTransactionDto } from 'src/user-notification-transaction/dto/create-user-notification-transaction.dto';
 
 
 @Injectable()
@@ -14,8 +15,14 @@ export class PaymentGatewayApitransactionService {
     private PaymentGatewayApitransactionRepository:Repository<PaymentGatewayApitransaction>,
   ){}
          
-  create (createPaymentGatewayApitransactionDto: CreatePaymentGatewayApitransactionDto) {
-    return this.PaymentGatewayApitransactionRepository.save(createPaymentGatewayApitransactionDto)
+  async create (createPaymentGatewayApitransactionDto: CreatePaymentGatewayApitransactionDto) {
+    const temp = await this.PaymentGatewayApitransactionRepository.save(createPaymentGatewayApitransactionDto) as PaymentGatewayApitransaction
+    const response = {
+      shopID: temp.shopID, 
+      message: "OK"
+    }
+    return  response
+  
   }
   
 
@@ -29,7 +36,7 @@ export class PaymentGatewayApitransactionService {
 
   async update(id: string, updatePaymentGatewayApitransactionDto : UpdatePaymentGatewayApitransactionDto) {
     const isFinishToUpdate = await this.PaymentGatewayApitransactionRepository.findOneBy ({
-      transactionID: id,
+      shopID: id,
   })
     isFinishToUpdate.isFinish = true
     return this.PaymentGatewayApitransactionRepository.save(isFinishToUpdate)

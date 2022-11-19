@@ -10,6 +10,7 @@ import { UserNotificationTransaction } from './entities/user-notification-transa
     TypeOrmModule.forFeature([UserNotificationTransaction]),
   ],
   controllers: [UserNotificationTransactionController],
-  providers: [UserNotificationTransactionService]
+  providers: [UserNotificationTransactionService],
+  exports: [UserNotificationTransactionService]
 })
 export class UserNotificationTransactionModule {}

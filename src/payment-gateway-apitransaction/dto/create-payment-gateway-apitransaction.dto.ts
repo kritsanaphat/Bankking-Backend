@@ -2,16 +2,19 @@ import { PaymentGatewayApitransaction } from "../entities/payment-gateway-apitra
             
 export class CreatePaymentGatewayApitransactionDto {
    
-    transactionID: string;
+    shopID: string;
     shopAccountNumber: string;
-    datetime: Date
-    fee :number;
-    amount :number
-    type: PaymentGatewayApitransaction.Payment_Type; 
-    userAccountName : string;
-    isFinish: boolean;
-    created_at: Date
-    updated_at  :Date;
-    deleted_at  :Date;
+    userAccountNumber: string;
+    nameUser: string;
+    bankNameUser: PaymentGatewayApitransaction.BankName_Type;
+    amount: number;
+    balance: number;
+    fee: number;
+    type: PaymentGatewayApitransaction.Payment_Type;;
+    isFinish?: boolean;
+    date: Date;
+    created_at?: Date
+    updated_at?  :Date;
+    deleted_at?  :Date;
     
 }

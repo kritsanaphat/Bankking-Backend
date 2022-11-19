@@ -1,7 +1,7 @@
 import { PaymentTransaction } from '../entities/payment-transaction.entity'
 
 export class CreatePaymentTransactionDto {
-  transactionID: string;
+  transactionID?: string;
   IPAddress: string;
   userAccountNumber: string;
   otherAccountNumber: string;
@@ -10,10 +10,12 @@ export class CreatePaymentTransactionDto {
   bankNameOther: PaymentTransaction.BankName_Type;
   amount :number;
   fee :number;
+  balanced:number;
   type: PaymentTransaction.Payment_Type;
-  created_at :Date;
-  updated_at  :Date;
-  deleted_at  :Date;
+  date: Date | string;
+  created_at?:Date;
+  updated_at?  :Date;
+  deleted_at?  :Date;
 }
 
 

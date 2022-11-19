@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Inject, forwardRef } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { response } from 'express';
 import { validateHeaderValue } from 'http';
@@ -11,26 +11,33 @@ import{ PaymentTransaction } from './entities/payment-transaction.entity'
 import {UserNotificationTransaction} from '../user-notification-transaction/entities/user-notification-transaction.entity'
 import { CreateUserNotificationTransactionDto } from 'src/user-notification-transaction/dto/create-user-notification-transaction.dto';
 import { UserNotificationTransactionService } from 'src/user-notification-transaction/user-notification-transaction.service';
-import { HttpService } from '@nestjs/axios';
+import { HttpService, HttpModule } from '@nestjs/axios';
 
 @Injectable()
 export class PaymentTransactionService {
   constructor(
     @InjectRepository(PaymentTransaction)
+    @Inject()
+    //private userNotificationTransactionService : UserNotificationTransactionService,
     private PaymentTransactionRepository: Repository<PaymentTransaction>,
     private readonly httpService: HttpService
   ) {}
 
   async create(createPaymentTransactionDto: CreatePaymentTransactionDto) {
-   
-    const data = {
-      "accountID":createPaymentTransactionDto.accountID,
-      "transactionID":"83037447-1fe1-47ad-9b6e-e26a5c1fcad4"
+    console.log(createPaymentTransactionDto)
+    const temp = await this.PaymentTransactionRepository.save(createPaymentTransactionDto) as PaymentTransaction;
+    const data: CreateUserNotificationTransactionDto = {
+      accountID: createPaymentTransactionDto.accountID,
+      transactionID: temp.transactionID
     }
     console.log(data)
-    const createNotification = await this.httpService.axiosRef.post('http://localhost:3001/user-notification-transaction',data)
-    return     this.PaymentTransactionRepository.save(createPaymentTransactionDto)
+    const createNotofication = await this.httpService.axiosRef.post("http://localhost:3001/user-notification-transaction",data)
 
+    const response = {
+      transactionID: temp.transactionID, 
+      message: "OK"
+    }
+    return  response
   }
   
   findAll(): Promise<PaymentTransaction[]> {
@@ -77,7 +84,7 @@ export class PaymentTransactionService {
               datetime :  value.created_at,
               description : value.type,
               paymentAmount : value.amount,
-              balance : value.amount
+              balance : value.amount,
             }
             responseArray.push(response)
           }
