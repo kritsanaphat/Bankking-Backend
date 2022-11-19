@@ -2,6 +2,7 @@ import { PaymentGatewayApitransaction } from "../entities/payment-gateway-apitra
             
 export class CreatePaymentGatewayApitransactionDto {
    
+    transactionID:string;
     shopID: string;
     shopAccountNumber: string;
     userAccountNumber: string;

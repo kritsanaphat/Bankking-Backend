@@ -17,7 +17,7 @@ export class PaymentGatewayApitransaction {
     @PrimaryGeneratedColumn(
         'uuid'
         )
-      shopID: string;
+      transactionID: string;
 
     @Column({
         type: 'varchar',
