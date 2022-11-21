@@ -91,9 +91,9 @@ Nest is [MIT licensed](LICENSE).
 - create OTP Transaction (account backend)
 
 ## Activity-Transaction
-### create activity transaction
+## create activity transaction
 - path [activity-transaction](http://localhost:3001/activity-transaction)
-- method ''post''
+- method POST
 - body
   ```
   {
@@ -109,27 +109,9 @@ Nest is [MIT licensed](LICENSE).
   }
   ```
 
-### create otp transaction
-- path [activity-transaction](http://localhost:3001/activity-transaction)
-- method ''post''
-- body
-  ```
-  {
-    "accountID":"9842a4e5-f6df-4bf7-9289-e341abcb80a9",
-    "IPAddress":"0.0.0.0"
-  }
-  ```
-- response
-  ```
-  {
-    "accountID": "9842a4e5-f6df-4bf7-9289-e341abcb80a9",
-    "messege": "OK"
-  }
-  ```
-
-### create otp transaction
+## create otp transaction
 - path [otp-transaction](http://localhost:3001/otp-transaction)
-- method ''post''
+- method POST
 - body
   ```
   {
