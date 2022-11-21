@@ -90,4 +90,14 @@ Nest is [MIT licensed](LICENSE).
 ## Otp Transaction
 - create OTP Transaction (account backend)
 
-##
+## Activity-Transaction
+- create activity transaction
+  path(activity-transaction)
+  method post
+  body
+  ```
+  {
+    "accountID":"9842a4e5-f6df-4bf7-9289-e341abcb80a9",
+    "IPAddress":"0.0.0.0"
+  }
+  ```

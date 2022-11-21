@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { response } from 'express';
 import { Repository } from 'typeorm';
 
 import { CreateActivityTransactionDto } from './dto/create-activity-transaction.dto';
@@ -14,22 +15,15 @@ export class ActivityTransactionService {
   ){}
 
   create(createActivityTransactionDto: CreateActivityTransactionDto) {
-    return this.ActivityTransactionRepository.create(createActivityTransactionDto)
+    const temp = this.ActivityTransactionRepository.create(createActivityTransactionDto)
+    const response = {
+      "accountID":temp.accountID,
+      "messege":"OK"
+    }
+    return response
   }
 
   findAll() {
     return this.ActivityTransactionRepository.find()
   }
-
-  // findOne(id: number) {
-  //   return `This action returns a #${id} activityTransaction`;
-  // }
-
-  // update(id: number, updateActivityTransactionDto: UpdateActivityTransactionDto) {
-  //   return `This action updates a #${id} activityTransaction`;
-  // }
-
-  // remove(id: number) {
-  //   return `This action removes a #${id} activityTransaction`;
-  // }
 }

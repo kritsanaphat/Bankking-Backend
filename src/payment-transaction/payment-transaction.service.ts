@@ -40,27 +40,6 @@ export class PaymentTransactionService {
     return  response
   }
   
-  findAll(): Promise<PaymentTransaction[]> {
-    return this.PaymentTransactionRepository.find();
-  }  
-
-  findbyMonth(createdAt: string): Promise<PaymentTransaction[]> {
-    var newCreatedAt = (createdAt.split(","))
-    const num = newCreatedAt.length
-    console.log(num)
-    var dateTemp1 = newCreatedAt.pop()
-    const d = this.PaymentTransactionRepository
-        .createQueryBuilder('d')
-        .where
-        ("(d.created_at > :s1 and d.created_at < :e1)", 
-        {s1: new Date(dateTemp1+",1"),e1: new Date(dateTemp1+",31")})
-        .getMany();
-        console.log("Return...")
-        return d
-
-   
-  }
-
   async createStatement(createStatementTransactionDto: CreateStatementTransactionDto){
     //  s => startDate
     //  e => endDate
@@ -156,14 +135,13 @@ export class PaymentTransactionService {
       var dateTemp5 = date.pop()
       const d = this.PaymentTransactionRepository
         .createQueryBuilder('d')
-        .where('d.userAccountNumber = :userAccountNumber ', { userAccountNumber:"78484584" })
-        // .andWhere
-        // ('(d.created_at > :s1 and d.created_at < :e1) or (d.created_at > :s2 and d.created_at < :e2)or (d.created_at > :s3 and d.created_at < :e3)or (d.created_at > :s4 and d.created_at < :e4 )or (d.created_at > :s5 or d.created_at < :e5 )', 
-        // {s1: new Date(dateTemp1+",1"),e1: new Date(dateTemp1+",31")
-        // ,s2: new Date(dateTemp2+",1"),e2: new Date(dateTemp2+",31")
-        // ,s3: new Date(dateTemp3+",1"),e3: new Date(dateTemp3+",31")
-        // ,s4: new Date(dateTemp4+",1"),e4: new Date(dateTemp4+",31")
-        // ,s5: new Date(dateTemp5+",1"),e5: new Date(dateTemp5+",31") })
+        .where
+        ('(d.created_at > :s1 and d.created_at < :e1) or (d.created_at > :s2 and d.created_at < :e2)or (d.created_at > :s3 and d.created_at < :e3)or (d.created_at > :s4 and d.created_at < :e4 )or (d.created_at > :s5 or d.created_at < :e5 )', 
+        {s1: new Date(dateTemp1+",1"),e1: new Date(dateTemp1+",31")
+        ,s2: new Date(dateTemp2+",1"),e2: new Date(dateTemp2+",31")
+        ,s3: new Date(dateTemp3+",1"),e3: new Date(dateTemp3+",31")
+        ,s4: new Date(dateTemp4+",1"),e4: new Date(dateTemp4+",31")
+        ,s5: new Date(dateTemp5+",1"),e5: new Date(dateTemp5+",31") })
         .getMany();
         console.log("Return...")
         return d
@@ -190,6 +168,26 @@ export class PaymentTransactionService {
         console.log("Return...")
         return d
     }
+  }
+  findAll(): Promise<PaymentTransaction[]> {
+    return this.PaymentTransactionRepository.find();
+  }  
+
+  findbyMonth(createdAt: string): Promise<PaymentTransaction[]> {
+    var newCreatedAt = (createdAt.split(","))
+    const num = newCreatedAt.length
+    console.log(num)
+    var dateTemp1 = newCreatedAt.pop()
+    const d = this.PaymentTransactionRepository
+        .createQueryBuilder('d')
+        .where
+        ("(d.created_at > :s1 and d.created_at < :e1)", 
+        {s1: new Date(dateTemp1+",1"),e1: new Date(dateTemp1+",31")})
+        .getMany();
+        console.log("Return...")
+        return d
+
+   
   }
   
   async findSumOfDate(createdAt: string): Promise<any>{
@@ -303,16 +301,4 @@ export class PaymentTransactionService {
 
   }
 
-
-
-
-
-
-  // update(id: number, updatePaymentTransactionDto: UpdatePaymentTransactionDto) {
-  //   return this.PaymentTransactionRepository.update(id,updatePaymentTransactionDto)
-  // }
-
-  // async remove(id: string): Promise<void> {
-  //   await this.PaymentTransactionRepository.delete(id);
-  // }
 }

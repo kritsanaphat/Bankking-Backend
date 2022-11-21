@@ -41,14 +41,4 @@ export class PaymentTransactionController {
   findSumOfMonth(@Param('id') id: string) {
     return this.paymentTransactionService.findSumOfMonth(id);
   }
-
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updatePaymentTransactionDto: UpdatePaymentTransactionDto) {
-  //   return this.paymentTransactionService.update(+id, updatePaymentTransactionDto);
-  // }
-
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.paymentTransactionService.remove(Number(id));
-  // }
 }

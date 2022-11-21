@@ -13,9 +13,7 @@ import { UserNotificationTransactionModule } from 'src/user-notification-transac
   imports: [
     HttpModule,
     TypeOrmModule.forFeature([PaymentTransaction]),
-    // TypeOrmModule.forFeature([UserNotificationTransaction]),
-    // forwardRef(()=>UserNotificationTransactionModule),
-    
+  
     
   ],
   controllers: [PaymentTransactionController],
