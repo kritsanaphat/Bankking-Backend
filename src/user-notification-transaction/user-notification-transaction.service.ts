@@ -12,8 +12,13 @@ export class UserNotificationTransactionService {
     private UserNotificationTransactionRepository: Repository<UserNotificationTransaction>
   ){}
 
-  create(createUserNotificationTransactionDto: CreateUserNotificationTransactionDto) {
-    return this.UserNotificationTransactionRepository.save(createUserNotificationTransactionDto)
+  async create(createUserNotificationTransactionDto: CreateUserNotificationTransactionDto) {
+    const temp =  await this.UserNotificationTransactionRepository.save(createUserNotificationTransactionDto)
+    const response = {
+      notiID:temp.notiID,
+      messege:"OK"
+    }
+    return response
   }
 
   findAll() {

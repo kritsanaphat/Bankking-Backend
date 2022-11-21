@@ -295,3 +295,38 @@ Nest is [MIT licensed](LICENSE).
     }
   ]
   ```
+
+## create notification (generated automatically)
+- path [user-notification-transaction](http://localhost:3001/user-notification-transaction)
+- method POST
+- body 
+  ```
+  {
+  "accountID": "5247e3c9-9b51-46d9-87f9-61bfe22238c2",
+  "transactionID": "67f59a24-657e-42a5-9e16-ea68d3542cc5"
+  }
+  ```
+- response
+  ```
+  {
+    "notiID": "6d858042-a72e-4c6a-9dda-dcfa96be57b9",
+    "messege": "OK"
+  }
+  ```
+
+## update notification (Read or not)
+- path [user-notification-transaction/(notiID)](http://localhost:3001/user-notification-transaction/(notiID))
+- method PATCH
+- body none
+- response
+  ```
+  {
+    "notiID": "67a84dc5-6619-40d2-9964-e12c684cd087",
+    "accountID": "123e8367-e87b-12d3-a456-426614174000",
+    "transactionID": "123e8367-e87b-12d3-a456-426614174087",
+    "isRead": true,
+    "created_at": "2022-10-23T10:17:58.706Z",
+    "updated_at": "2022-11-21T16:26:14.185Z",
+    "deleted_at": null
+  }
+  ```
