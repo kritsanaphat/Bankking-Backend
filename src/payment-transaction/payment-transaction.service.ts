@@ -18,7 +18,6 @@ export class PaymentTransactionService {
   constructor(
     @InjectRepository(PaymentTransaction)
     @Inject()
-    //private userNotificationTransactionService : UserNotificationTransactionService,
     private PaymentTransactionRepository: Repository<PaymentTransaction>,
     private readonly httpService: HttpService
   ) {}
@@ -33,11 +32,12 @@ export class PaymentTransactionService {
     console.log(data)
     const createNotofication = await this.httpService.axiosRef.post("http://localhost:3001/user-notification-transaction",data)
 
-    const response = {
+    const responseTransaction = {
       transactionID: temp.transactionID, 
       message: "OK"
     }
-    return  response
+    
+    return  responseTransaction
   }
   
   async createStatement(createStatementTransactionDto: CreateStatementTransactionDto){
@@ -69,7 +69,6 @@ export class PaymentTransactionService {
           }
         })
       let Finalresponse = {"statement":responseArray,
-                             "sourceEmail":createStatementTransactionDto.sourceEmail,
                              "desEmail":createStatementTransactionDto.destEmail,
                              "name":createStatementTransactionDto.name,
                              "accountNumber":createStatementTransactionDto.userAccountNumber
@@ -82,7 +81,7 @@ export class PaymentTransactionService {
     else if(num == 2){
       var dateTemp1 = date.pop()
       var dateTemp2 = date.pop()
-      const d = this.PaymentTransactionRepository
+      const d = await this.PaymentTransactionRepository
         .createQueryBuilder('d')
         .where
         ("(d.created_at > :s1 and d.created_at < :e1) or (d.created_at > :s2 and d.created_at < :e2)", 
@@ -90,14 +89,37 @@ export class PaymentTransactionService {
         ,s2: new Date(dateTemp2+",1"),e2: new Date(dateTemp2+",31")})
         .getMany();
         console.log("Return...")
-        return d
+        
+        let response = {}
+        let responseArray = []
+        d.map((value,index)=>{
+          if(value.userAccountNumber == createStatementTransactionDto.userAccountNumber){
+              response = {
+                datetime :  value.created_at,
+                description : value.type,
+                paymentAmount : value.amount,
+                balance : value.amount,
+              }
+              responseArray.push(response)
+            }
+          })
+        let Finalresponse = {"statement":responseArray,
+                               "desEmail":createStatementTransactionDto.destEmail,
+                               "name":createStatementTransactionDto.name,
+                               "accountNumber":createStatementTransactionDto.userAccountNumber
+                              }
+  
+        console.log(Finalresponse)
+        return Finalresponse
+  
+        
     }
 
     else if(num == 3){
       var dateTemp1 = date.pop()
       var dateTemp2 = date.pop()
       var dateTemp3 = date.pop()
-      const d = this.PaymentTransactionRepository
+      const d = await this.PaymentTransactionRepository
         .createQueryBuilder('d')
         .where
         ('(d.created_at > :s1 and d.created_at < :e1) or (d.created_at > :s2 and d.created_at < :e2)or (d.created_at > :s3 and d.created_at < :e3)', 
@@ -106,7 +128,29 @@ export class PaymentTransactionService {
         ,s3: new Date(dateTemp2+",1"),e3: new Date(dateTemp3+",31")})
         .getMany();
         console.log("Return...")
-        return d
+        
+        let response = {}
+        let responseArray = []
+        d.map((value,index)=>{
+          if(value.userAccountNumber == createStatementTransactionDto.userAccountNumber){
+              response = {
+                datetime :  value.created_at,
+                description : value.type,
+                paymentAmount : value.amount,
+                balance : value.amount,
+              }
+              responseArray.push(response)
+            }
+          })
+        let Finalresponse = {"statement":responseArray,
+                               "desEmail":createStatementTransactionDto.destEmail,
+                               "name":createStatementTransactionDto.name,
+                               "accountNumber":createStatementTransactionDto.userAccountNumber
+                              }
+  
+        console.log(Finalresponse)
+        return Finalresponse
+  
     }
 
     else if(num == 4){
@@ -114,7 +158,7 @@ export class PaymentTransactionService {
       var dateTemp2 = date.pop()
       var dateTemp3 = date.pop()
       var dateTemp4 = date.pop()
-      const d = this.PaymentTransactionRepository
+      const d = await this.PaymentTransactionRepository
         .createQueryBuilder('d')
         .where
         ('(d.created_at > :s1 and d.created_at < :e1) or (d.created_at > :s2 and d.created_at < :e2)or (d.created_at > :s3 and d.created_at < :e3)or (d.created_at > :s4 and d.created_at < :e4)', 
@@ -124,7 +168,29 @@ export class PaymentTransactionService {
         ,s4: new Date(dateTemp4+",1"),e4: new Date(dateTemp4+",31") })
         .getMany();
         console.log("Return...")
-        return d
+
+        let response = {}
+        let responseArray = []
+        d.map((value,index)=>{
+          if(value.userAccountNumber == createStatementTransactionDto.userAccountNumber){
+              response = {
+                datetime :  value.created_at,
+                description : value.type,
+                paymentAmount : value.amount,
+                balance : value.amount,
+              }
+              responseArray.push(response)
+            }
+          })
+        let Finalresponse = {"statement":responseArray,
+                               "desEmail":createStatementTransactionDto.destEmail,
+                               "name":createStatementTransactionDto.name,
+                               "accountNumber":createStatementTransactionDto.userAccountNumber
+                              }
+  
+        console.log(Finalresponse)
+        return Finalresponse
+  
     }
 
     else if(num == 5){
@@ -133,7 +199,7 @@ export class PaymentTransactionService {
       var dateTemp3 = date.pop()
       var dateTemp4 = date.pop()
       var dateTemp5 = date.pop()
-      const d = this.PaymentTransactionRepository
+      const d = await this.PaymentTransactionRepository
         .createQueryBuilder('d')
         .where
         ('(d.created_at > :s1 and d.created_at < :e1) or (d.created_at > :s2 and d.created_at < :e2)or (d.created_at > :s3 and d.created_at < :e3)or (d.created_at > :s4 and d.created_at < :e4 )or (d.created_at > :s5 or d.created_at < :e5 )', 
@@ -144,7 +210,29 @@ export class PaymentTransactionService {
         ,s5: new Date(dateTemp5+",1"),e5: new Date(dateTemp5+",31") })
         .getMany();
         console.log("Return...")
-        return d
+        
+        let response = {}
+        let responseArray = []
+        d.map((value,index)=>{
+          if(value.userAccountNumber == createStatementTransactionDto.userAccountNumber){
+              response = {
+                datetime :  value.created_at,
+                description : value.type,
+                paymentAmount : value.amount,
+                balance : value.amount,
+              }
+              responseArray.push(response)
+            }
+          })
+        let Finalresponse = {"statement":responseArray,
+                               "desEmail":createStatementTransactionDto.destEmail,
+                               "name":createStatementTransactionDto.name,
+                               "accountNumber":createStatementTransactionDto.userAccountNumber
+                              }
+  
+        console.log(Finalresponse)
+        return Finalresponse
+  
     }
 
     else if(num == 6){
@@ -154,7 +242,7 @@ export class PaymentTransactionService {
       var dateTemp4 = date.pop()
       var dateTemp5 = date.pop()
       var dateTemp6 = date.pop()
-      const d = this.PaymentTransactionRepository
+      const d = await this.PaymentTransactionRepository
         .createQueryBuilder('d')
         .where
         ('(d.created_at > :s1 and d.created_at < :e1) or (d.created_at > :s2 and d.created_at < :e2)or (d.created_at > :s3 and d.created_at < :e3)or (d.created_at > :s4 and d.created_at < :e4 )or (d.created_at > :s5 and d.created_at < :e5 )or (d.created_at > :s6 and d.created_at < :s6 )', 
@@ -166,9 +254,32 @@ export class PaymentTransactionService {
         ,s6: new Date(dateTemp6+",1"),e6: new Date(dateTemp6+",31")})
         .getMany();
         console.log("Return...")
-        return d
+        
+        let response = {}
+        let responseArray = []
+        d.map((value,index)=>{
+          if(value.userAccountNumber == createStatementTransactionDto.userAccountNumber){
+              response = {
+                datetime :  value.created_at,
+                description : value.type,
+                paymentAmount : value.amount,
+                balance : value.amount,
+              }
+              responseArray.push(response)
+            }
+          })
+        let Finalresponse = {"statement":responseArray,
+                               "desEmail":createStatementTransactionDto.destEmail,
+                               "name":createStatementTransactionDto.name,
+                               "accountNumber":createStatementTransactionDto.userAccountNumber
+                              }
+  
+        console.log(Finalresponse)
+        return Finalresponse
+  
     }
   }
+
   findAll(): Promise<PaymentTransaction[]> {
     return this.PaymentTransactionRepository.find();
   }  

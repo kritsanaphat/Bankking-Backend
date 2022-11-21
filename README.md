@@ -140,4 +140,65 @@ Nest is [MIT licensed](LICENSE).
     "message": "OK"
   }
   ```
-## update o
+##  create payment transaction
+- path [payment-transaction](http://localhost:3001/payment-transaction)
+- method POST
+- body
+  ```
+  {
+  "IPAddress": "0.0.0.0",
+  "userAccountNumber": "78484584",
+  "otherAccountNumber": "0123456",
+  "nameOther": "est",
+  "accountID":"83037447-1fe1-47ad-9b6e-e26a5c1fcad9",
+  "bankNameOther": "4QU",
+  "amount" :20000,
+  "balance":5854,
+  "fee" :20,
+  "date": "2022-11-17 16:55:35.83",
+  "type": "receive"
+  }
+  ```
+- response
+  ```
+  {
+    "transactionID": "de7c7e6b-4317-41ea-b672-633dec091241",
+    "message": "OK"
+  }
+  ```
+
+## create statement
+- path [payment-transaction](http://localhost:3001/payment-transaction/statement)
+- method POST
+- body
+  ```
+  {
+    "userAccountID": "string",
+    "userAccountNumber": "78484584",
+    "destEmail": "string",
+    "name":"accountname",
+    "Date": "2022-11,2022-08"
+  }
+  ```
+- response
+  ```
+  {
+    "statement": [
+        {
+            "datetime": "2022-11-19T11:17:08.870Z",
+            "description": "receive",
+            "paymentAmount": 20000,
+            "balance": 20000
+        },
+        {
+            "datetime": "2022-11-21T14:37:05.081Z",
+            "description": "receive",
+            "paymentAmount": 20000,
+            "balance": 20000
+        }
+    ],
+    "desEmail": "string",
+    "name": "accountname",
+    "accountNumber": "78484584"
+  }
+  ```
