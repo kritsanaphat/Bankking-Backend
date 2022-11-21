@@ -207,3 +207,30 @@ Nest is [MIT licensed](LICENSE).
 - path [payment-transaction](http://localhost:3001/payment-transaction)
 - method POST
 - body (Date : Max 1 Month)
+
+
+## get summary by date
+- path [payment-transaction/summary-date](http://localhost:3001/payment-transaction/summary-date)
+- method POST
+- body 
+  ```
+  {
+    "userAccountNumber":"0093714533",
+    "date":"2022-11-1,2022-11-31"
+  }
+  ```
+- response
+  ```
+  [
+    {
+        "date": "21/11/2022",
+        "income": 205088080,
+        "outcome": 0
+    },
+    {
+        "date": "19/11/2022",
+        "income": 200000,
+        "outcome": 150000
+    }
+  ]
+  ```
