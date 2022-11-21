@@ -244,9 +244,39 @@ Nest is [MIT licensed](LICENSE).
   ```
 
 ## get transaction by month
-- path [payment-transaction](http://localhost:3001/payment-transaction)
+- path [payment-transaction/month](http://localhost:3001/payment-transaction/month)
 - method POST
 - body (Date : Max 1 Month)
+  ```
+  {
+    "userAccountNumber":"0093714533",
+    "date":"2022-11"
+  }
+  ```
+
+- response
+  ```
+  [
+    {
+        "otherAccountNumber": "0123456",
+        "nameOther": "est",
+        "bankNameOther": "4QU",
+        "amount": 205088080,
+        "type": "receive",
+        "date": "2022-11-17T09:55:35.830Z",
+        "created_at": "2022-11-21T15:38:24.323Z"
+    },
+    {
+        "otherAccountNumber": "0123456",
+        "nameOther": "est",
+        "bankNameOther": "4QU",
+        "amount": 205088080,
+        "type": "receive",
+        "date": "2022-11-17T09:55:35.830Z",
+        "created_at": "2022-11-21T15:54:13.718Z"
+    }
+    ]
+    ```
 
 
 ## get summary by date

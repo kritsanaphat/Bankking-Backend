@@ -299,10 +299,13 @@ export class PaymentTransactionService {
       d.map((value,index)=>{
         if(value.userAccountNumber == requestTransactionDto.userAccountNumber){
             response = {
-              datetime :  value.created_at,
-              description : value.type,
-              paymentAmount : value.amount,
-              balance : value.amount,
+              otherAccountNumber: value.otherAccountNumber,
+              nameOther: value.nameOther,
+              bankNameOther: value.bankNameOther,
+              amount :value.amount,
+              type: value.type,
+              date: value.date,
+              created_at: value.created_at
             }
             responseArray.push(response)
           }
