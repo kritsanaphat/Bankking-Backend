@@ -43,6 +43,7 @@ export class PaymentTransactionService {
   async createStatement(createStatementTransactionDto: CreateStatementTransactionDto){
     //  s => startDate
     //  e => endDate
+    let Finalresponse
     var date = createStatementTransactionDto.Date.split(',')
     const num = date.length
     if(num == 1){
@@ -68,16 +69,14 @@ export class PaymentTransactionService {
             responseArray.push(response)
           }
         })
-      let Finalresponse = {"statement":responseArray,
+      Finalresponse = {"statement":responseArray,
                              "desEmail":createStatementTransactionDto.destEmail,
                              "name":createStatementTransactionDto.name,
                              "accountNumber":createStatementTransactionDto.userAccountNumber
                             }
 
-      console.log(Finalresponse)
-      return Finalresponse
-
     }
+
     else if(num == 2){
       var dateTemp1 = date.pop()
       var dateTemp2 = date.pop()
@@ -103,14 +102,12 @@ export class PaymentTransactionService {
               responseArray.push(response)
             }
           })
-        let Finalresponse = {"statement":responseArray,
+        Finalresponse = {"statement":responseArray,
                                "desEmail":createStatementTransactionDto.destEmail,
                                "name":createStatementTransactionDto.name,
                                "accountNumber":createStatementTransactionDto.userAccountNumber
                               }
   
-        console.log(Finalresponse)
-        return Finalresponse
   
         
     }
@@ -142,14 +139,12 @@ export class PaymentTransactionService {
               responseArray.push(response)
             }
           })
-        let Finalresponse = {"statement":responseArray,
+        Finalresponse = {"statement":responseArray,
                                "desEmail":createStatementTransactionDto.destEmail,
                                "name":createStatementTransactionDto.name,
                                "accountNumber":createStatementTransactionDto.userAccountNumber
                               }
   
-        console.log(Finalresponse)
-        return Finalresponse
   
     }
 
@@ -182,14 +177,11 @@ export class PaymentTransactionService {
               responseArray.push(response)
             }
           })
-        let Finalresponse = {"statement":responseArray,
+        Finalresponse = {"statement":responseArray,
                                "desEmail":createStatementTransactionDto.destEmail,
                                "name":createStatementTransactionDto.name,
                                "accountNumber":createStatementTransactionDto.userAccountNumber
                               }
-  
-        console.log(Finalresponse)
-        return Finalresponse
   
     }
 
@@ -224,14 +216,12 @@ export class PaymentTransactionService {
               responseArray.push(response)
             }
           })
-        let Finalresponse = {"statement":responseArray,
+        Finalresponse = {"statement":responseArray,
                                "desEmail":createStatementTransactionDto.destEmail,
                                "name":createStatementTransactionDto.name,
                                "accountNumber":createStatementTransactionDto.userAccountNumber
                               }
-  
-        console.log(Finalresponse)
-        return Finalresponse
+
   
     }
 
@@ -268,16 +258,17 @@ export class PaymentTransactionService {
               responseArray.push(response)
             }
           })
-        let Finalresponse = {"statement":responseArray,
+        Finalresponse = {"statement":responseArray,
                                "desEmail":createStatementTransactionDto.destEmail,
                                "name":createStatementTransactionDto.name,
                                "accountNumber":createStatementTransactionDto.userAccountNumber
                               }
   
-        console.log(Finalresponse)
-        return Finalresponse
-  
     }
+
+    const sendTostatementService = await this.httpService.axiosRef.post("https://quplus-noti-service.herokuapp.com/email-notification/statement",Finalresponse)
+
+    return Finalresponse
   }
 
   findAll(): Promise<PaymentTransaction[]> {
