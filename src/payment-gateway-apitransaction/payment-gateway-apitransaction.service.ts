@@ -24,11 +24,12 @@ export class PaymentGatewayApitransactionService {
       accountID: createPaymentGatewayApitransactionDto.shopID,
       transactionID: temp.transactionID
     }
+
     console.log(data)
     const createNotofication = await this.httpService.axiosRef.post("http://localhost:3001/user-notification-transaction",data)
     
     const response = {
-      shopID: createPaymentGatewayApitransactionDto.shopID, 
+      teansactionID: createPaymentGatewayApitransactionDto.transactionID, 
       message: "OK"
     }
     return  response
@@ -39,10 +40,6 @@ export class PaymentGatewayApitransactionService {
   findAll(): Promise<PaymentGatewayApitransaction[]>{
     return this.PaymentGatewayApitransactionRepository.find()
   }
-
-  // findOne(id: number) {
-  //   return `This action returns a #${id} otpTransaction`;
-  // }
 
   async update(id: string, updatePaymentGatewayApitransactionDto : UpdatePaymentGatewayApitransactionDto) {
     const isFinishToUpdate = await this.PaymentGatewayApitransactionRepository.findOneBy ({

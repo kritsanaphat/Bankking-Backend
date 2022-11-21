@@ -76,21 +76,6 @@ Nest is [MIT licensed](LICENSE).
 
 ## About Code
 
-## Paymet Transaction 
-- create Transaction. (payment transaction)
-- get All Transaction. (transaction backend)
-- get Transaction By Months. (transaction backend)
-
-## UserNotifican Transaction
-- check if the notification has been read or not. (Home / Homeshop)
-
-## Payment Gateway Transaction
-- check if the payment gateway has been Finish or not. 
-
-## Otp Transaction
-- create OTP Transaction (account backend)
-
-## Activity-Transaction
 ## create activity transaction
 - path [activity-transaction](http://localhost:3001/activity-transaction)
 - method POST
@@ -128,6 +113,7 @@ Nest is [MIT licensed](LICENSE).
     "message": "OK"
   }
   ```
+
 ## update otp transaction
 - path [otp-transaction/(transactionID)](http://localhost:3001/otp-transaction//b826b8e5-d582-46de-b2dd-54cc986efb65)
 - method PATCH
@@ -140,7 +126,61 @@ Nest is [MIT licensed](LICENSE).
     "message": "OK"
   }
   ```
-##  create payment transaction
+
+## create payment gateway
+- path [payment-gateway-transaction](http://localhost:3001/payment-gateway-transaction)
+- method POST
+- body
+  ```
+  {
+  "shopID":"1111e3c9-9b51-46d9-87f9-61bfe22238c2",
+  "shopAccountNumber": "0.0.0.0",
+  "userAccountNumber": "78484584",
+  "bankNameUser": "4QU",
+  "nameUser":"Saeadde",
+  "amount" :20000,
+  "balance":5854,
+  "fee" :20,
+  "date": "2022-11-17 16:55:35.83",
+  "type": "receive"
+  }
+  ```
+
+- response
+  ```
+  {
+    "teansactionID": "70734f77-9c08-499c-8c97-41fd11a56324",
+    "message": "OK"
+  }
+  ```
+
+## update isFinish of payment gateway
+- path [payment-gateway-transaction/(transactionID)](http://localhost:3001/payment-gateway-transaction/(transactionID))
+- method PATCH
+- body (none)
+- response
+  ```
+  {
+    "transactionID": "d5ad2374-4dae-4132-ab2c-450d519430ea",
+    "shopAccountNumber": "0.0.0.0",
+    "userAccountNumber": "78484584",
+    "nameUser": "Saeadde",
+    "bankNameUser": "4QU",
+    "date": "2022-11-17T09:55:35.830Z",
+    "fee": 20,
+    "amount": 20000,
+    "balance": 5854,
+    "type": "receive",
+    "isFinish": true,
+    "created_at": "2022-11-19T10:53:01.990Z",
+    "updated_at": "2022-11-21T16:03:59.491Z",
+    "deleted_at": null
+  }
+  ```
+
+
+
+## create payment transaction
 - path [payment-transaction](http://localhost:3001/payment-transaction)
 - method POST
 - body

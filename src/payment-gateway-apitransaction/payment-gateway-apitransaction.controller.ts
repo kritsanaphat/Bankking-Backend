@@ -4,7 +4,7 @@ import { PaymentGatewayApitransactionService } from './payment-gateway-apitransa
 import { CreatePaymentGatewayApitransactionDto } from './dto/create-payment-gateway-apitransaction.dto';
 import { UpdatePaymentGatewayApitransactionDto } from './dto/update-payment-gateway-apitransaction.dto';
 
-@Controller('payment-gateway-apitransaction')
+@Controller('payment-gateway-transaction')
 export class PaymentGatewayApitransactionController {
   constructor(private readonly paymentGatewayApitransactionService: PaymentGatewayApitransactionService) {}
 
@@ -18,18 +18,10 @@ export class PaymentGatewayApitransactionController {
     return this.paymentGatewayApitransactionService.findAll();
   }
 
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.paymentGatewayApitransactionService.findOne(+id);
-  // }
 
   @Patch(':id')
   update(@Param('isFinish') id: string, @Body() updatePaymentGatewayApitransactionDto: UpdatePaymentGatewayApitransactionDto) {
     return this.paymentGatewayApitransactionService.update(id, updatePaymentGatewayApitransactionDto);
   }
 
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.paymentGatewayApitransactionService.remove(id);
-  // }
 }
