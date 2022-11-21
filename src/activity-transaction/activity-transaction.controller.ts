@@ -16,19 +16,4 @@ export class ActivityTransactionController {
   findAll() {
     return this.activityTransactionService.findAll();
   }
-
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.activityTransactionService.findOne(+id);
-  // }
-
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateActivityTransactionDto: UpdateActivityTransactionDto) {
-  //   return this.activityTransactionService.update(+id, updateActivityTransactionDto);
-  // }
-
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.activityTransactionService.remove(+id);
-  // }
 }

@@ -14,11 +14,11 @@ export class ActivityTransactionService {
     private ActivityTransactionRepository: Repository<ActivityTransaction>
   ){}
 
-  create(createActivityTransactionDto: CreateActivityTransactionDto) {
-    const temp = this.ActivityTransactionRepository.create(createActivityTransactionDto)
+  async create(createActivityTransactionDto: CreateActivityTransactionDto) {
+    const temp = await this.ActivityTransactionRepository.save(createActivityTransactionDto)
     const response = {
-      "accountID":temp.accountID,
-      "messege":"OK"
+      accountID : temp.accountID,
+      messege: "OK"
     }
     return response
   }

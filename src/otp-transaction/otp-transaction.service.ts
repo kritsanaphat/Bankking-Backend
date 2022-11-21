@@ -14,22 +14,19 @@ export class OtpTransactionService {
     private OtpTransactionRepository:Repository<OtpTransaction>,
   ){}
 
-  create(createOtpTransactionDto: CreateOtpTransactionDto) {
-    return this.OtpTransactionRepository.save(createOtpTransactionDto)
+  async create(createOtpTransactionDto: CreateOtpTransactionDto) {
+    const temp = await this.OtpTransactionRepository.save(createOtpTransactionDto) as CreateOtpTransactionDto
+    const response = {
+      transactionID : temp.transactionID,
+      message : "OK"
+    }
+    return response
   }
 
   findAll(): Promise<OtpTransaction[]>{
     return this.OtpTransactionRepository.find()
   }
 
-  // findOne(id: number) {
-  //   return `This action returns a #${id} otpTransaction`;
-  // }
-
-  // update(id: number, updateOtpTransactionDto: UpdateOtpTransactionDto) {
-  //   return this.OtpTransactionRepository.update(id,updateOtpTransactionDto)
-  // }
-  
   async remove(id: string): Promise<void> {
     await this.OtpTransactionRepository.delete(id);
   }

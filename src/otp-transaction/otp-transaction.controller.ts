@@ -17,11 +17,6 @@ export class OtpTransactionController {
     return this.otpTransactionService.findAll();
   }
 
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.otpTransactionService.findOne(+id);
-  // }
-
   @Patch(':id')
   update(@Param('isFinished') id: string, @Body() updateOtpTransactionDto: UpdateOtpTransactionDto) {
     return this.otpTransactionService.update(id, updateOtpTransactionDto);
