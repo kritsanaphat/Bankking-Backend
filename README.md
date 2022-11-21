@@ -92,7 +92,7 @@ Nest is [MIT licensed](LICENSE).
 
 ## Activity-Transaction
 # create activity transaction
-- path(activity-transaction)
+- path [activity-transaction]
 - method post
 - body
   ```
