@@ -128,3 +128,16 @@ Nest is [MIT licensed](LICENSE).
     "message": "OK"
   }
   ```
+## update otp transaction
+- path [otp-transaction/(transactionID)](http://localhost:3001/otp-transaction//b826b8e5-d582-46de-b2dd-54cc986efb65)
+- method PATCH
+- body (none)
+- response
+  ```
+  {
+    "transactionID": "0cad0153-3fe6-4c9c-be42-d4fb9e3d37b8",
+    "isFinishd": true,
+    "message": "OK"
+  }
+  ```
+## update o

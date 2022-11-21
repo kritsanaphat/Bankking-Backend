@@ -35,7 +35,12 @@ export class OtpTransactionService {
       transactionID: id,
   })
     isFinishdToUpdate.isFinished = true
-    return this.OtpTransactionRepository.save(isFinishdToUpdate)
+    const temp = await this.OtpTransactionRepository.save(isFinishdToUpdate)
+    const response = {
+      transactionID : temp.transactionID,
+      isFinishd : temp.isFinished,
+      message : "OK"
+    }
+    return response
   }
-
 }
