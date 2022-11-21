@@ -333,22 +333,22 @@ export class PaymentTransactionService {
           const isIncome = value.type === PaymentTransaction.Payment_Type.RECEIVE || value.type === PaymentTransaction.Payment_Type.DEPOSIT
           const date = `${value.created_at.getDate()}/${value.created_at.getMonth() + 1}/${value.created_at.getFullYear()}`
           if(value.userAccountNumber == requestTransactionDto.userAccountNumber){
-          if (response[date]) {
-            if(isIncome){
-              response[date].income += value.amount
-              response[date].outcome += value.fee
+            if (response[date]) {
+              if(isIncome){
+                response[date].income += value.amount
+                response[date].outcome += value.fee
 
-            }
-            else{
-              response[date].outcome += value.amount+value.fee
-            }
+              }
+              else{
+                response[date].outcome += value.amount+value.fee
+              }
 
-          } else {
-            response[date] = {
-              income : isIncome ? value.amount : 0,
-              outcome : !isIncome ? value.amount+value.fee : 0
+            } else {
+              response[date] = {
+                income : isIncome ? value.amount : 0,
+                outcome : !isIncome ? value.amount+value.fee : 0
+              }
             }
-          }
         }
            console.log(date)
           console.log(value.created_at.getDate(), value.amount , value.type, value.fee)
@@ -392,20 +392,22 @@ export class PaymentTransactionService {
           const isIncome = value.type === PaymentTransaction.Payment_Type.RECEIVE || value.type === PaymentTransaction.Payment_Type.DEPOSIT
           const month = `${value.created_at.getMonth() + 1}/${value.created_at.getFullYear()}`
           console.log("month"+month)
-          if (response[month]) {
-            if(isIncome){
-              response[month].income += value.amount
-              response[month].outcome += value.fee
+          if(value.userAccountNumber == requestTransactionDto.userAccountNumber){
+            if (response[month]) {
+              if(isIncome){
+                response[month].income += value.amount
+                response[month].outcome += value.fee
 
-            }
-            else{
-              response[month].outcome += value.amount+value.fee
-            }
+              }
+              else{
+                response[month].outcome += value.amount+value.fee
+              }
 
-          } else {
-            response[month] = {
-              income : isIncome ? value.amount : 0,
-              outcome : !isIncome ? value.amount+value.fee : 0
+            } else {
+              response[month] = {
+                income : isIncome ? value.amount : 0,
+                outcome : !isIncome ? value.amount+value.fee : 0
+              }
             }
           }
           // console.log(date)

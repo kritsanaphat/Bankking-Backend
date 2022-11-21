@@ -37,7 +37,7 @@ export class PaymentTransactionController {
     return this.paymentTransactionService.findSumOfDate(requestTransactionDto);
   }
 
-  @Get('summary-month')
+  @Post('summary-month')
   findSumOfMonth(@Body() requestTransactionDto: RequestTransactionDto) {
     return this.paymentTransactionService.findSumOfMonth(requestTransactionDto);
   }

@@ -234,3 +234,24 @@ Nest is [MIT licensed](LICENSE).
     }
   ]
   ```
+
+## get summary by month
+- path [payment-transaction/summary-month](http://localhost:3001/payment-transaction/summary-month)
+- method POST
+- body 
+  ```
+  {
+    "userAccountNumber":"0093714533",
+    "date":"2022-11-1,2022-11-31"
+  }
+  ```
+- response
+  ```
+  [
+    {
+        "month": "11/2022",
+        "income": 205288080,
+        "outcome": 200000
+    }
+  ]
+  ```
