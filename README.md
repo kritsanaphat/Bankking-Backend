@@ -168,9 +168,9 @@ Nest is [MIT licensed](LICENSE).
   ```
 
 ## create statement
-- path [payment-transaction](http://localhost:3001/payment-transaction/statement)
+- path [payment-transaction/statement](http://localhost:3001/payment-transaction/statement)
 - method POST
-- body
+- body (Date : Max 6 Month)
   ```
   {
     "userAccountID": "string",
@@ -202,3 +202,8 @@ Nest is [MIT licensed](LICENSE).
     "accountNumber": "78484584"
   }
   ```
+
+## get transaction by month
+- path [payment-transaction](http://localhost:3001/payment-transaction)
+- method POST
+- body (Date : Max 6 Month)
