@@ -19,4 +19,10 @@ export class CreatePaymentTransactionDto {
 }
 
 
+export class RequestTransactionDto{
+  userAccountNumber: string;
+  date: string
+}
+
+
 

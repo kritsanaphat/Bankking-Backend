@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 
 
 import { PaymentTransactionService } from './payment-transaction.service';
-import { CreatePaymentTransactionDto } from './dto/create-payment-transaction.dto';
+import { CreatePaymentTransactionDto , RequestTransactionDto} from './dto/create-payment-transaction.dto';
 import { UpdatePaymentTransactionDto } from './dto/update-payment-transaction.dto';
 import { PaymentTransaction } from './entities/payment-transaction.entity';
 import { CreateOtpTransactionDto } from 'src/otp-transaction/dto/create-otp-transaction.dto';
@@ -27,18 +27,18 @@ export class PaymentTransactionController {
     return this.paymentTransactionService.findAll()
   }
 
-  @Get('/:id')
-  findbyMonth(@Param('id') id: string) {
-    return this.paymentTransactionService.findbyMonth(id);
+  @Post('month')
+  findbyMonth(@Body() requestTransactionDto: RequestTransactionDto) {
+    return this.paymentTransactionService.findbyMonth(requestTransactionDto);
   }
 
-  @Get('Sum-date/:id')
-  findSumOfDate(@Param('id') id: string) {
-    return this.paymentTransactionService.findSumOfDate(id);
+  @Post('summary-date')
+  findSumOfDate(@Body() requestTransactionDto: RequestTransactionDto) {
+    return this.paymentTransactionService.findSumOfDate(requestTransactionDto);
   }
 
-  @Get('Sum-month/:id')
-  findSumOfMonth(@Param('id') id: string) {
-    return this.paymentTransactionService.findSumOfMonth(id);
+  @Get('summary-month')
+  findSumOfMonth(@Body() requestTransactionDto: RequestTransactionDto) {
+    return this.paymentTransactionService.findSumOfMonth(requestTransactionDto);
   }
 }

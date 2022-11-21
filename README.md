@@ -206,4 +206,4 @@ Nest is [MIT licensed](LICENSE).
 ## get transaction by month
 - path [payment-transaction](http://localhost:3001/payment-transaction)
 - method POST
-- body (Date : Max 6 Month)
+- body (Date : Max 1 Month)

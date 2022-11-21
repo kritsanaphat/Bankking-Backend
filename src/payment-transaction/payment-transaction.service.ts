@@ -4,7 +4,7 @@ import { response } from 'express';
 import { validateHeaderValue } from 'http';
 import { Like, Repository, Between } from 'typeorm';
 
-import { CreatePaymentTransactionDto } from './dto/create-payment-transaction.dto';
+import { CreatePaymentTransactionDto , RequestTransactionDto} from './dto/create-payment-transaction.dto';
 import { CreateStatementTransactionDto } from './dto/create-statement-transaction.dto';
 import { UpdatePaymentTransactionDto } from './dto/update-payment-transaction.dto';
 import{ PaymentTransaction } from './entities/payment-transaction.entity'
@@ -284,25 +284,38 @@ export class PaymentTransactionService {
     return this.PaymentTransactionRepository.find();
   }  
 
-  findbyMonth(createdAt: string): Promise<PaymentTransaction[]> {
-    var newCreatedAt = (createdAt.split(","))
-    const num = newCreatedAt.length
-    console.log(num)
-    var dateTemp1 = newCreatedAt.pop()
-    const d = this.PaymentTransactionRepository
+  async findbyMonth(requestTransactionDto: RequestTransactionDto){
+    const date = requestTransactionDto.date
+    const d = await this.PaymentTransactionRepository
         .createQueryBuilder('d')
         .where
         ("(d.created_at > :s1 and d.created_at < :e1)", 
-        {s1: new Date(dateTemp1+",1"),e1: new Date(dateTemp1+",31")})
+        {s1: new Date(date+",1"),e1: new Date(date+",31")})
         .getMany();
         console.log("Return...")
-        return d
+        
+      let response = {}
+      let responseArray = []
+      d.map((value,index)=>{
+        if(value.userAccountNumber == requestTransactionDto.userAccountNumber){
+            response = {
+              datetime :  value.created_at,
+              description : value.type,
+              paymentAmount : value.amount,
+              balance : value.amount,
+            }
+            responseArray.push(response)
+          }
+        })
+                    
 
+      console.log(responseArray)
+      return responseArray
    
   }
   
-  async findSumOfDate(createdAt: string): Promise<any>{
-    var newCreatedAt = (createdAt.split(","))
+  async findSumOfDate(requestTransactionDto: RequestTransactionDto){
+    var newCreatedAt = requestTransactionDto.date.split(',')
     var dateTemp1 = newCreatedAt.pop()
     var dateTemp2 = newCreatedAt.pop()
     console.log(dateTemp1,dateTemp2)
@@ -319,6 +332,7 @@ export class PaymentTransactionService {
         d.map((value,index)=>{
           const isIncome = value.type === PaymentTransaction.Payment_Type.RECEIVE || value.type === PaymentTransaction.Payment_Type.DEPOSIT
           const date = `${value.created_at.getDate()}/${value.created_at.getMonth() + 1}/${value.created_at.getFullYear()}`
+          if(value.userAccountNumber == requestTransactionDto.userAccountNumber){
           if (response[date]) {
             if(isIncome){
               response[date].income += value.amount
@@ -335,6 +349,7 @@ export class PaymentTransactionService {
               outcome : !isIncome ? value.amount+value.fee : 0
             }
           }
+        }
            console.log(date)
           console.log(value.created_at.getDate(), value.amount , value.type, value.fee)
         })
@@ -359,8 +374,8 @@ export class PaymentTransactionService {
 
   }
 
-  async findSumOfMonth(createdAt: string): Promise<any>{
-    var newCreatedAt = (createdAt.split(","))
+  async findSumOfMonth(requestTransactionDto: RequestTransactionDto){
+    var newCreatedAt = requestTransactionDto.date.split(',')
     var dateTemp1 = newCreatedAt.pop()
     var dateTemp2 = newCreatedAt.pop()
     console.log(dateTemp1,dateTemp2)
