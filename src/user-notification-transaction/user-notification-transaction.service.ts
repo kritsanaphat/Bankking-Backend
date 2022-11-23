@@ -25,6 +25,17 @@ export class UserNotificationTransactionService {
     return this.UserNotificationTransactionRepository.find()
   }
 
+  async findOne(accountID: string) {
+    let response = {}
+    console.log(accountID)
+    const d = await this.UserNotificationTransactionRepository
+      .createQueryBuilder('d')
+      .where('d.accountID = :id', { id:accountID })
+      .getMany()
+
+      return d
+  }
+
   async update(id: string, updateUserNotificationTransactionDto : UpdateUserNotificationTransactionDto) {
     const isReadToUpdate = await this.UserNotificationTransactionRepository.findOneBy ({
       notiID: id,

@@ -15,14 +15,7 @@ import { ActivityTransactionModule } from './activity-transaction/activity-trans
 import { ActivityTransaction } from './activity-transaction/entities/activity-transaction.entity';
 import { UserNotificationTransactionModule } from './user-notification-transaction/user-notification-transaction.module';
 import { UserNotificationTransaction } from './user-notification-transaction/entities/user-notification-transaction.entity';
-// const transactionDB: TypeOrmModuleOptions = {
-//   type: 'postgres',
-//   port: 5432,
-//   username: 'postgres1',
-//   password: 'kritsanaphat1',
-//   database: 'transaction',
-//   synchronize: true,
-// }
+
 @Module({
   imports: [
     TypeOrmModule.forRoot({

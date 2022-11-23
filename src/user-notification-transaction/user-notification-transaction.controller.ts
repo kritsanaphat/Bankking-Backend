@@ -17,10 +17,10 @@ export class UserNotificationTransactionController {
     return this.userNotificationTransactionService.findAll();
   }
 
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.userNotificationTransactionService.findOne(+id);
-  // }
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.userNotificationTransactionService.findOne(id);
+  }
 
   @Patch(':id')
   update(@Param('isRead') id: string, @Body() updateUserNotificationTransactionDto: UpdateUserNotificationTransactionDto) {

@@ -312,7 +312,7 @@ Nest is [MIT licensed](LICENSE).
   ```
   {
     "userAccountNumber":"0093714533",
-    "date":"2022-11-1,2022-11-31"
+    "date":"2022-11,2022-12"
   }
   ```
 - response
@@ -358,5 +358,35 @@ Nest is [MIT licensed](LICENSE).
     "created_at": "2022-10-23T10:17:58.706Z",
     "updated_at": "2022-11-21T16:26:14.185Z",
     "deleted_at": null
+  }
+  ```
+
+## get Notification
+- path [user-notification-transaction/(accountID)](http://localhost:3001/user-notification-transaction/(accountID))
+- method GET
+- body none
+- response
+  ```
+  {
+  [
+    {
+        "notiID": "8141d457-ae1e-4155-9eb3-8326524270b7",
+        "accountID": "123e8367-e87b-12d3-a456-426614174000",
+        "transactionID": "123e8367-e87b-12d3-a456-426614174087",
+        "isRead": true,
+        "created_at": "2022-10-23T10:17:42.734Z",
+        "updated_at": "2022-10-23T10:20:07.101Z",
+        "deleted_at": null
+    },
+    {
+        "notiID": "1b61d9aa-e247-468a-a679-5404c19d1092",
+        "accountID": "123e8367-e87b-12d3-a456-426614174000",
+        "transactionID": "123e8367-e87b-12d3-a456-426614174087",
+        "isRead": true,
+        "created_at": "2022-10-23T10:17:57.762Z",
+        "updated_at": "2022-10-23T10:20:53.610Z",
+        "deleted_at": null
+    },
+    ]
   }
   ```

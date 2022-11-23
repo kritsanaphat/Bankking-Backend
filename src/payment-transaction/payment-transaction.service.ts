@@ -15,6 +15,7 @@ import { HttpService, HttpModule } from '@nestjs/axios';
 
 @Injectable()
 export class PaymentTransactionService {
+  //private Test: Test
   constructor(
     @InjectRepository(PaymentTransaction)
     @Inject()
@@ -70,7 +71,7 @@ export class PaymentTransactionService {
           }
         })
       Finalresponse = {"statement":responseArray,
-                             "desEmail":createStatementTransactionDto.destEmail,
+                             "destEmail":createStatementTransactionDto.destEmail,
                              "name":createStatementTransactionDto.name,
                              "accountNumber":createStatementTransactionDto.userAccountNumber
                             }
@@ -103,7 +104,7 @@ export class PaymentTransactionService {
             }
           })
         Finalresponse = {"statement":responseArray,
-                               "desEmail":createStatementTransactionDto.destEmail,
+                               "destEmail":createStatementTransactionDto.destEmail,
                                "name":createStatementTransactionDto.name,
                                "accountNumber":createStatementTransactionDto.userAccountNumber
                               }
@@ -140,7 +141,7 @@ export class PaymentTransactionService {
             }
           })
         Finalresponse = {"statement":responseArray,
-                               "desEmail":createStatementTransactionDto.destEmail,
+                               "destEmail":createStatementTransactionDto.destEmail,
                                "name":createStatementTransactionDto.name,
                                "accountNumber":createStatementTransactionDto.userAccountNumber
                               }
@@ -178,7 +179,7 @@ export class PaymentTransactionService {
             }
           })
         Finalresponse = {"statement":responseArray,
-                               "desEmail":createStatementTransactionDto.destEmail,
+                               "destEmail":createStatementTransactionDto.destEmail,
                                "name":createStatementTransactionDto.name,
                                "accountNumber":createStatementTransactionDto.userAccountNumber
                               }
@@ -217,7 +218,7 @@ export class PaymentTransactionService {
             }
           })
         Finalresponse = {"statement":responseArray,
-                               "desEmail":createStatementTransactionDto.destEmail,
+                               "destEmail":createStatementTransactionDto.destEmail,
                                "name":createStatementTransactionDto.name,
                                "accountNumber":createStatementTransactionDto.userAccountNumber
                               }
@@ -259,7 +260,7 @@ export class PaymentTransactionService {
             }
           })
         Finalresponse = {"statement":responseArray,
-                               "desEmail":createStatementTransactionDto.destEmail,
+                               "destEmail":createStatementTransactionDto.destEmail,
                                "name":createStatementTransactionDto.name,
                                "accountNumber":createStatementTransactionDto.userAccountNumber
                               }
@@ -302,9 +303,9 @@ export class PaymentTransactionService {
           }
         })
                     
-
+      const newResponse = responseArray.reverse()
       console.log(responseArray)
-      return responseArray
+      return newResponse
    
   }
   
@@ -424,3 +425,7 @@ export class PaymentTransactionService {
   }
 
 }
+
+// @Injectable()
+// export class Test{
+// }
